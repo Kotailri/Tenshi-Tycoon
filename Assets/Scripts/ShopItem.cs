@@ -22,6 +22,7 @@ public class ShopItem : MonoBehaviour
 
     [Space(10.0f)]
     public long ShopItemCount = 0;
+    public float multiplier = 1.0f;
 
     public void SetShopItemName(string _name)
     {
@@ -66,8 +67,8 @@ public class ShopItem : MonoBehaviour
         }
     }
 
-    public long GetFullRate(float modifier=1.0f)
+    public long GetFullRate()
     {
-        return (long)(ShopItemRate * ShopItemCount * modifier);
+        return (long)(ShopItemRate * ShopItemCount * multiplier);
     }
 }
