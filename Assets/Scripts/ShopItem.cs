@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ShopItem : MonoBehaviour
 {
@@ -22,12 +23,23 @@ public class ShopItem : MonoBehaviour
 
     [Space(10.0f)]
     public long ShopItemCount = 0;
-    public float multiplier = 1.0f;
+
+    [HideInInspector]
+    public delegate long RateMod(long rate);
+    [HideInInspector]
+    public List<RateMod> rateModList = new();
+
+    public void SetShopItemCount(long count)
+    {
+        ShopItemCount = count;
+        ShopItemCountText.text = count.ToString();
+    }
 
     public void SetShopItemName(string _name)
     {
         ShopItemName = _name;
         ShopItemNameText.text = _name;
+        transform.name = "[" + ShopItemId + "] " + _name;
     }
 
     public void SetShopItemPrice(long _price)
@@ -69,6 +81,12 @@ public class ShopItem : MonoBehaviour
 
     public long GetFullRate()
     {
-        return (long)(ShopItemRate * ShopItemCount * multiplier);
+        long rate = ShopItemRate * ShopItemCount;
+        foreach (RateMod modify in rateModList)
+        {
+            rate = modify(rate);
+        }
+
+        return rate;
     }
 }

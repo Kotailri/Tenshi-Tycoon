@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +13,10 @@ public class IncomeController : MonoBehaviour
 
     [Space(10.0f)]
     public List<ShopItem> shopItems = new();
+    public List<Upgrade> upgradeItems = new();
+
     public GameObject ShopContent;
+    public GameObject UpgradeContent;
 
     public long rings = 0;
     public long currentRate = 1;
@@ -33,7 +37,7 @@ public class IncomeController : MonoBehaviour
     public List<Item> itemInfo = new List<Item> 
     {
         //       Name                                Rate                      Price
-        new Item("Ceiling Fan",                        1,                      150),
+        new Item("Ceiling Fan",                        1,                      100),
         new Item("Head Wing Feather",                 10,                     1000),
         new Item("Poofy Cloud",                       80,                   11_000),    
         new Item("Amai Light Stick",                 470,                  120_000),
@@ -58,7 +62,10 @@ public class IncomeController : MonoBehaviour
         ringText.text = Global.LongToString(rings);
         
         int currId = 0;
-        float ypos = -30f;
+        int currUpgradeId = 0;
+
+        float ypos = -15f;
+        float yposUpgrade = -60f;
 
         foreach (Transform t in ShopContent.transform)
         {
@@ -70,6 +77,7 @@ public class IncomeController : MonoBehaviour
                     continue;
                 }
 
+                t.name = "[" + currId.ToString() + "] " + itemInfo[currId].itemName;
                 item.ShopItemId = currId;
                 item.SetShopItemName(itemInfo[currId].itemName);
                 item.SetShopItemPrice(itemInfo[currId].price);
@@ -79,6 +87,19 @@ public class IncomeController : MonoBehaviour
                 t.position = new Vector3(t.position.x, ypos, t.position.z);
                 ypos -= 90f;
                 currId++;
+            }
+        }
+
+        foreach (Transform t in UpgradeContent.transform)
+        {
+            if (t.TryGetComponent(out Upgrade upgrade))
+            {
+                t.name = "[" + currUpgradeId.ToString() + "] " + upgrade.upgradeName;
+                upgrade.upgradeId = currUpgradeId;
+                upgradeItems.Add(upgrade);
+                t.position = new Vector3(t.position.x, yposUpgrade, t.position.z);
+                yposUpgrade -= 180f;
+                currUpgradeId++;
             }
         }
 
@@ -108,5 +129,132 @@ public class IncomeController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveData();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SaveData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            LoadData();
+        }
+    }
+
+    //==================== DATA SAVING ========================
+
+    [System.Serializable]
+    public class SerializableList<T>
+    {
+        public List<T> list;
+    }
+
+    [System.Serializable]
+    public class SaveFile
+    {
+        public long saved_rings;
+        public long saved_rate;
+
+        public List<long> sav_shopItemCount;
+        public List<int> sav_upgradeItemLevels;
+
+        public SaveFile(long _saved_rings, long _saved_rate, List<long> _sav_shopItemCount, List<int> _sav_upgradeItemLevels)
+        {
+            sav_shopItemCount = new();
+            sav_upgradeItemLevels = new();
+
+            saved_rings = _saved_rings;
+            saved_rate = _saved_rate;
+
+            foreach (long n in _sav_shopItemCount)
+            {
+                sav_shopItemCount.Add(n);
+            }
+
+            foreach(int n in _sav_upgradeItemLevels)
+            {
+                sav_upgradeItemLevels.Add(n);
+            }
+        }
+    }
+
+    public void LoadData()
+    {
+        using (StreamReader r = new StreamReader("./save_file.json"))
+        {
+            string json = r.ReadToEnd();
+            SaveFile sav = JsonUtility.FromJson<SaveFile>(json);
+
+            rings = sav.saved_rings;
+            currentRate = sav.saved_rate;
+
+            for (int i = 0; i < shopItems.Count; i++)
+            {
+                shopItems[i].ShopItemCount = sav.sav_shopItemCount[i];
+                shopItems[i].ShopItemCountText.text = sav.sav_shopItemCount[i].ToString();
+            }
+
+            for (int i = 0; i < upgradeItems.Count; i++)
+            {
+                if (upgradeItems[i].TryGetComponent(out ScalingUpgrade upgrade1))
+                {
+                    upgrade1.SetLevel(sav.sav_upgradeItemLevels[i]);
+                }
+                else if (upgradeItems[i].TryGetComponent(out Upgrade upgrade2))
+                {
+                    if (sav.sav_upgradeItemLevels[i] == 1)
+                    {
+                        upgradeItems[i].SetAsSold();
+                    }
+                }
+
+            }
+        }
+    }
+
+    public void SaveData()
+    {
+        long sav_rate = currentRate;
+        long sav_rings = rings;
+
+        List<long> sav_shopItemCount = new();
+        List<int> sav_upgradeItemLevels = new();
+
+        for (int i = 0; i < shopItems.Count; i++)
+        {
+            sav_shopItemCount.Add(shopItems[i].ShopItemCount);
+        }
+
+        for (int i = 0; i < upgradeItems.Count; i++)
+        {
+            if (upgradeItems[i].TryGetComponent(out ScalingUpgrade upgrade1))
+            {
+                sav_upgradeItemLevels.Add(upgrade1.GetLevel());
+            }
+            else if (upgradeItems[i].TryGetComponent(out Upgrade upgrade2))
+            {
+                if (upgrade2.isSold)
+                {
+                    sav_upgradeItemLevels.Add(1);
+                }
+                else
+                {
+                    sav_upgradeItemLevels.Add(0);
+                }
+            }
+        }
+
+        SaveFile fileToSave = new SaveFile(sav_rings, sav_rate, sav_shopItemCount, sav_upgradeItemLevels);
+        string json = JsonUtility.ToJson(fileToSave);
+        System.IO.File.WriteAllText("./save_file.json", json);
+        print("Saved file!");
     }
 }

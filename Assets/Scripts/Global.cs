@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Global
 {
+    public static HoverBox hoverBox;
     public static IncomeController incomeController;
 
     public static string LongToString(long num)
