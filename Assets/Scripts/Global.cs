@@ -1,12 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Global
 {
-    public static HoverBox hoverBox;
-    public static IncomeController incomeController;
+    public static IncomeManager incomeManager;
+    public static ItemManager itemManager;
+
+    //public static HoverBox hoverBox;
+    //public static IncomeController incomeController;
 
     public static string LongToString(long num)
     {
