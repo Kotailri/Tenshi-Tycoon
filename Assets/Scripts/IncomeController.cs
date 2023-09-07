@@ -103,6 +103,7 @@ public class IncomeController : MonoBehaviour
             }
         }
 
+        LoadData();
         InvokeRepeating(nameof(UpdateIncome), 0f, 0.1f);
     }
 
@@ -188,7 +189,7 @@ public class IncomeController : MonoBehaviour
 
     public void LoadData()
     {
-        using (StreamReader r = new StreamReader("./save_file.json"))
+        using (StreamReader r = new StreamReader("./tenshi_idle_save_file.json"))
         {
             string json = r.ReadToEnd();
             SaveFile sav = JsonUtility.FromJson<SaveFile>(json);
@@ -254,7 +255,6 @@ public class IncomeController : MonoBehaviour
 
         SaveFile fileToSave = new SaveFile(sav_rings, sav_rate, sav_shopItemCount, sav_upgradeItemLevels);
         string json = JsonUtility.ToJson(fileToSave);
-        System.IO.File.WriteAllText("./save_file.json", json);
-        print("Saved file!");
+        System.IO.File.WriteAllText("./tenshi_idle_save_file.json", json);
     }
 }

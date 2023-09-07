@@ -62,7 +62,7 @@ public class RotationSpeed : Upgrade, ScalingUpgrade
         }
 
         Global.incomeController.shopItems[0].ShopItemRate = newRate;
-        Global.incomeController.shopItems[0].GetComponent<HasHoverText>().text = ("Increases tr/s by " + newRate.ToString());
+        Global.incomeController.shopItems[0].GetComponent<HasHoverText>().text = ("Increases tr/s by " + Global.LongToString(newRate));
 
         if (level >= 4)
         {
