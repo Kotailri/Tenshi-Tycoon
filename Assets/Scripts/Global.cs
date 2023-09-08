@@ -6,8 +6,7 @@ public class Global
     public static IncomeManager incomeManager;
     public static ItemManager itemManager;
 
-    //public static HoverBox hoverBox;
-    //public static IncomeController incomeController;
+    public static HoverBox hoverBox;
 
     public static string LongToString(long num)
     {

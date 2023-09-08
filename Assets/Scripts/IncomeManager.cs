@@ -13,12 +13,28 @@ public class IncomeManager : MonoBehaviour
     public float rate = 0;
 
     private readonly float updateRate = 0.1f;
+    private float partialRings = 0.0f;
 
     private void CollectRings()
     {
         long collection = Global.itemManager.GetCollectiveRate();
         rateText.text = Global.LongToString(collection) + " tr/s";
-        rings += (long)(collection * updateRate);
+
+        if (collection >= (updateRate * 100))
+        {
+            rings += (long)(collection * updateRate);
+        }
+        else
+        {
+            partialRings += collection * updateRate;
+        }
+
+        if (partialRings >= 1)
+        {
+            partialRings -= 1;
+            rings += 1;
+        }
+        
         ringText.text = Global.LongToString(rings);
     }
 
@@ -39,9 +55,9 @@ public class IncomeManager : MonoBehaviour
         ringText.text = Global.LongToString(rings);
     }
 
-    void Start()
+    private void OnEnable()
     {
         Global.incomeManager = this;
-        InvokeRepeating(nameof(CollectRings), 0f, updateRate);
+        InvokeRepeating(nameof(CollectRings), 0.1f, updateRate);
     }
 }
