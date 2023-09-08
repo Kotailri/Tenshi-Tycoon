@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce06c6adf35dca4f859e80ef3a10e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickAmount: 100
+  clickAmount: 1
 --- !u!61 &183746228
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1723,7 +1723,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: tenshi ring tycoon v1.0
+  m_text: tenshi tycoon v1.0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d0529d6a32364c429661cac1327381e, type: 2}
   m_sharedMaterial: {fileID: 8380857952526949712, guid: 5d0529d6a32364c429661cac1327381e, type: 2}

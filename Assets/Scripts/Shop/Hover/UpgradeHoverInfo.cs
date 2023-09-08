@@ -11,13 +11,11 @@ public class UpgradeHoverInfo : HasHoverInfo
     {
         if (shopUpgrade.GetRequirementLock())
         {
-            return shopUpgrade.GetRequirementText() + $" You have {Global.itemManager.FindItem(shopUpgrade.targetItemName).count}";
+            return shopUpgrade.GetRequirementText() + $" You have {Global.itemManager.FindShopItem(shopUpgrade.targetItemName).GetCount()}";
         }
         else
         {
             return "";
         }
-
-        
     }
 }

@@ -24,9 +24,9 @@ public class HasHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        cursorIn = false;
         if (Global.hoverBox)
         {
+            cursorIn = false;
             showing = false;
             Global.hoverBox.HideText();
         }
@@ -36,32 +36,27 @@ public class HasHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (cursorIn)
         {
-            showing = false;
-            Global.hoverBox.HideText();
-            if (Global.hoverBox && !showing && isEnabled)
+            if (GetInfoText() != "")
             {
-                showing = true;
-                if (GetInfoText() != "")
-                {
-                    text = GetInfoText();
-                }
+                text = GetInfoText();
+                Global.hoverBox.HideText();
                 Global.hoverBox.ShowText(text);
-
             }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        cursorIn = true;
+        
         if (Global.hoverBox && !showing && isEnabled)
         {
+            cursorIn = true;
             showing = true;
             if (GetInfoText() != "")
             {
                 text = GetInfoText();
+                Global.hoverBox.ShowText(text);
             }
-            Global.hoverBox.ShowText(text);
 
         }
 

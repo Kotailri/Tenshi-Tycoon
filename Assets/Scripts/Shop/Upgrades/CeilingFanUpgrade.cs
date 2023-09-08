@@ -22,6 +22,7 @@ public class CeilingFanUpgrade : ShopUpgrade
 
     public override void ApplyUpgrade()
     {
+        GetComponent<HasHoverInfo>().Refresh();
         base.ApplyUpgrade();
         ShopItem item = Global.itemManager.FindShopItem("Ceiling Fan");
 

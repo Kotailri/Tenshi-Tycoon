@@ -117,6 +117,11 @@ public class ShopItem : MonoBehaviour
         return item.price;
     }
 
+    public long GetCount()
+    {
+        return item.count;
+    }
+
     public long GetIncome()
     {
         return item.GetIncome();

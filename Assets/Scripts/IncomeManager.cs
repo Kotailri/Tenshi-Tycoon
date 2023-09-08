@@ -15,6 +15,14 @@ public class IncomeManager : MonoBehaviour
     private readonly float updateRate = 0.1f;
     private float partialRings = 0.0f;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            AddRings(1000);
+        }
+    }
+
     private void CollectRings()
     {
         long collection = Global.itemManager.GetCollectiveRate();
