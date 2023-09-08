@@ -8,6 +8,8 @@ public class HasHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private bool showing = false;
     private bool isEnabled = true;
 
+    private bool cursorIn = false;
+
     public void EnableHoverBox()
     {
         isEnabled = true;
@@ -22,16 +24,36 @@ public class HasHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        cursorIn = false;
         if (Global.hoverBox)
         {
             showing = false;
             Global.hoverBox.HideText();
         }
+    }
 
+    public void Refresh()
+    {
+        if (cursorIn)
+        {
+            showing = false;
+            Global.hoverBox.HideText();
+            if (Global.hoverBox && !showing && isEnabled)
+            {
+                showing = true;
+                if (GetInfoText() != "")
+                {
+                    text = GetInfoText();
+                }
+                Global.hoverBox.ShowText(text);
+
+            }
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        cursorIn = true;
         if (Global.hoverBox && !showing && isEnabled)
         {
             showing = true;

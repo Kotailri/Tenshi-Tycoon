@@ -82,11 +82,15 @@ public class ShopItem : MonoBehaviour
 
     private void PurchaseItem()
     {
-        if (Global.incomeManager.CanAfford(item.price))
+        if (!Global.incomeManager.CanAfford(item.price) || locked)
         {
-            Global.incomeManager.SubtractRings(item.price);
+            return;
         }
+
+        Global.incomeManager.SubtractRings(item.price);
         IncrementItemCount();
+
+        GetComponent<HasHoverInfo>().Refresh();
 
         if (item.count >= item.limit)
         {
@@ -101,6 +105,16 @@ public class ShopItem : MonoBehaviour
     public string GetName()
     {
         return item.shopname;
+    }
+
+    public long GetRate()
+    {
+        return item.rate;
+    }
+
+    public long GetPrice()
+    {
+        return item.price;
     }
 
     public long GetIncome()
@@ -141,6 +155,18 @@ public class ShopItem : MonoBehaviour
     public void IncrementItemCount()
     {
         item.IncrementItemCount();
+        if (item.count == 1)
+        {
+            string an = $"Bought [{item.shopname}] for the first time!";
+            Global.announcer.CreateAnnouncement(an);
+        }
+
+        if (item.count == 69)
+        {
+            string an = "haha funny number";
+            Global.announcer.CreateAnnouncement(an);
+        }
+
         shopItemCountText.text = Global.LongToString(item.count);
     }
 

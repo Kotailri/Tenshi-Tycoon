@@ -19,6 +19,13 @@ public class AnnouncementHandler : MonoBehaviour
     private Vector3 showingPosition;
     private bool showing = false;
 
+    private void Start()
+    {
+        Global.announcer = this;
+        hiddenPosition = transform.position;
+        showingPosition = transform.position + new Vector3(0,-90,0);
+    }
+
     public void CreateAnnouncement(string _text, float _time=3.0f)
     {
         Announcement an;
@@ -35,11 +42,15 @@ public class AnnouncementHandler : MonoBehaviour
     private IEnumerator StartAnnouncementAnim()
     {
         showing = true;
+        float delay = 0.75f;
+
         SetAnnounceText(announcementQueue.Peek().text);
-        LeanTween.move(gameObject, showingPosition, 0.25f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(gameObject, showingPosition, delay).setEase(LeanTweenType.easeInOutSine);
+
         yield return new WaitForSeconds(announcementQueue.Peek().time);
-        LeanTween.move(gameObject, hiddenPosition, 0.25f).setEase(LeanTweenType.easeInOutSine);
-        yield return new WaitForSeconds(0.5f);
+        LeanTween.move(gameObject, hiddenPosition, delay).setEase(LeanTweenType.easeInOutSine);
+
+        yield return new WaitForSeconds(0.5f + delay);
         announcementQueue.Dequeue();
 
         if (announcementQueue.Count == 0)

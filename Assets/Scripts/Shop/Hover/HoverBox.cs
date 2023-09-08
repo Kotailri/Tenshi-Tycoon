@@ -16,6 +16,9 @@ public class HoverBox : MonoBehaviour
 
     public void ShowText(string text)
     {
+        if (text.Equals(""))
+            return;
+
         boxText.text = text;
         transform.localScale = Vector3.one;
     }

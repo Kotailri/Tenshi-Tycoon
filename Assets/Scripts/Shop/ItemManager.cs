@@ -13,6 +13,11 @@ public class ItemManager : MonoBehaviour
     {
         Global.itemManager = this;
 
+        foreach (Transform child in itemsShopContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         InstantiateItems();
         PopulateStore();
     }

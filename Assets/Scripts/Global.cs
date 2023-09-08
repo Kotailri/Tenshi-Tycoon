@@ -6,6 +6,7 @@ public class Global
 {
     public static IncomeManager incomeManager;
     public static ItemManager itemManager;
+    public static AnnouncementHandler announcer;
 
     public static HoverBox hoverBox;
 
@@ -33,6 +34,9 @@ public class Global
     {
         int roundDecimals = 3;
         int numDigits = (int)Math.Floor(Mathf.Log10(num) + 1);
+
+        if (numDigits > 6 && numDigits <= (6 + 3))
+            return (Math.Round(num / Math.Pow(10, 6), roundDecimals)).ToString() + " million";
 
         if (numDigits > 9 && numDigits <= (9 + 3))
             return (Math.Round(num / Math.Pow(10, 9), roundDecimals)).ToString() + " billion";
