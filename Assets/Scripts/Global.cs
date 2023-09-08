@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Global
@@ -7,6 +8,26 @@ public class Global
     public static ItemManager itemManager;
 
     public static HoverBox hoverBox;
+
+    public static void InvokeLambda(Action action, float time)
+    {
+        MonoBehaviour script = new GameObject().AddComponent<Invoker>();
+        script.StartCoroutine(script.GetComponent<Invoker>().InvokeCoroutine(action, time));
+    }
+
+    private class Invoker : MonoBehaviour
+    {
+        public IEnumerator InvokeCoroutine(Action action, float time)
+        {
+            yield return new WaitForSeconds(time);
+            if (isActiveAndEnabled)
+            {
+                action.Invoke();
+                Destroy(gameObject);
+            }
+
+        }
+    }
 
     public static string LongToString(long num)
     {
