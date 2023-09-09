@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 
@@ -9,8 +10,8 @@ public class IncomeManager : MonoBehaviour
     public TextMeshProUGUI rateText;
 
     [Header("Rings")]
-    public long rings = 0;
-    public float rate = 0;
+    public BigInteger rings = 0;
+    public BigInteger rate = 0;
 
     private readonly float updateRate = 0.1f;
     private float partialRings = 0.0f;
@@ -19,7 +20,8 @@ public class IncomeManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            AddRings(1000);
+            // DEBUG
+            AddRings(999_999);
         }
     }
 
@@ -43,24 +45,24 @@ public class IncomeManager : MonoBehaviour
             rings += 1;
         }
         
-        ringText.text = Global.LongToString(rings);
+        ringText.text = Global.LongToString(rings, true);
     }
 
-    public bool CanAfford(long _rings)
+    public bool CanAfford(BigInteger _rings)
     {
         return rings >= _rings;
     }
 
-    public void SubtractRings(long _rings)
+    public void SubtractRings(BigInteger _rings)
     {
         rings -= _rings;
-        ringText.text = Global.LongToString(rings);
+        ringText.text = Global.LongToString(rings, true);
     }
 
-    public void AddRings(long _rings)
+    public void AddRings(BigInteger _rings)
     {
         rings += _rings;
-        ringText.text = Global.LongToString(rings);
+        ringText.text = Global.LongToString(rings, true);
     }
 
     private void OnEnable()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
 
 public class Global
@@ -30,52 +31,60 @@ public class Global
         }
     }
 
-    public static string LongToString(long num)
+    private static string NumToDecimalString(BigInteger num, int pow)
     {
-        int roundDecimals = 3;
-        int numDigits = (int)Math.Floor(Mathf.Log10(num) + 1);
+        int roundDecimals = 6;
+        BigInteger output = BigInteger.Divide(num, BigInteger.Pow(10, pow));
+        int outputLen = output.ToString().Length;
+        string str = output.ToString() + "." + num.ToString().Substring(outputLen, roundDecimals);
+        return float.Parse(str).ToString();
+    }
 
-        if (numDigits > 6 && numDigits <= (6 + 3))
-            return (Math.Round(num / Math.Pow(10, 6), roundDecimals)).ToString() + " million";
+    public static string LongToString(BigInteger num, bool excludesMillion=false)
+    {
+        int numDigits = num.ToString().Length;
+
+        if (numDigits > 6 && numDigits <= (6 + 3) && !excludesMillion)
+            return NumToDecimalString(num, 6) + " million";
 
         if (numDigits > 9 && numDigits <= (9 + 3))
-            return (Math.Round(num / Math.Pow(10, 9), roundDecimals)).ToString() + " billion";
+            return NumToDecimalString(num, 9) + " billion";
 
         if (numDigits > 12 && numDigits <= (12 + 3))
-            return (Math.Round(num / Math.Pow(10, 12), roundDecimals)).ToString() + " trillion";
+            return NumToDecimalString(num, 12) + " trillion";
 
         if (numDigits > 15 && numDigits <= (15 + 3))
-            return (Math.Round(num / Math.Pow(10, 15), roundDecimals)).ToString() + " quadrillion";
+            return NumToDecimalString(num, 15) + " quadrillion";
 
         if (numDigits > 18 && numDigits <= (18 + 3))
-            return (Math.Round(num / Math.Pow(10, 18), roundDecimals)).ToString() + " quintillion";
+            return NumToDecimalString(num, 18) + " quintillion";
 
         if (numDigits > 21 && numDigits <= (21 + 3))
-            return (Math.Round(num / Math.Pow(10, 21), roundDecimals)).ToString() + " sextillion";
+            return NumToDecimalString(num, 21) + " sextillion";
 
         if (numDigits > 24 && numDigits <= (24 + 3))
-            return (Math.Round(num / Math.Pow(10, 24), roundDecimals)).ToString() + " septillion";
+            return NumToDecimalString(num, 24) + " septillion";
 
         if (numDigits > 27 && numDigits <= (27 + 3))
-            return (Math.Round(num / Math.Pow(10, 27), roundDecimals)).ToString() + " octillion";
+            return NumToDecimalString(num, 27) + " octillion";
 
         if (numDigits > 30 && numDigits <= (30 + 3))
-            return (Math.Round(num / Math.Pow(10, 30), 1)).ToString() + " nonillion";
+            return NumToDecimalString(num, 30) + " nonillion";
 
         if (numDigits > 33 && numDigits <= (33 + 3))
-            return (Math.Round(num / Math.Pow(10, 33), roundDecimals)).ToString() + " decillion";
+            return NumToDecimalString(num, 33) + " decillion";
 
         if (numDigits > 36 && numDigits <= (36 + 3))
-            return (Math.Round(num / Math.Pow(10, 36), roundDecimals)).ToString() + " undecillion";
+            return NumToDecimalString(num, 36) + " undecillion";
 
         if (numDigits > 39 && numDigits <= (39 + 3))
-            return (Math.Round(num / Math.Pow(10, 39), roundDecimals)).ToString() + " duodecillion";
+            return NumToDecimalString(num, 39) + " duodecillion";
 
         if (numDigits > 42 && numDigits <= (42 + 3))
-            return (Math.Round(num / Math.Pow(10, 42), roundDecimals)).ToString() + " tredecillion";
+            return NumToDecimalString(num, 42) + " tredecillion";
 
         if (numDigits > 45 && numDigits <= (45 + 3))
-            return (Math.Round(num/Math.Pow(1, 45), roundDecimals)).ToString() + " quattuordecillion";
+            return NumToDecimalString(num, 45) + " quattuordecillion";
 
         return $"{num:n0}";
     }

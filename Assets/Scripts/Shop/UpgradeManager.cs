@@ -19,7 +19,7 @@ public class UpgradeManager : MonoBehaviour
             {
                 up.transform.position = firstPosition + new Vector3(0, yPos, 0);
                 upgradeList.Add(up);
-                yPos -= 180f;
+                yPos -= 130f;
             }
         }
     }

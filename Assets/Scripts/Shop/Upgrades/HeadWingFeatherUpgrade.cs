@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CeilingFanUpgrade : ShopUpgrade
+public class HeadWingFeatherUpgrade : ShopUpgrade
 {
     private List<long> requirementCount;
 
@@ -10,25 +10,21 @@ public class CeilingFanUpgrade : ShopUpgrade
     {
         Global.InvokeLambda(() => 
         {
-            targetItemName = "Ceiling Fan";
+            targetItemName = "Head Wing Feather";
             targetShopItem = Global.itemManager.FindShopItem(targetItemName);
 
             requirementCount = new()
             {
-                5,
-                10,
-                30,
-                60,
-                80
+                2, 10, 25, 60, 80
             };
 
             upgradeInfoList = new()
             {
-                new Upgrade($"{targetItemName} Tier 1", $"Increase [{targetItemName}] tr/s by 1", 500, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 2", $"Decrease [{targetItemName}] cost by 10", 800, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Increase [{targetItemName}] tr/s by 1", 3000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 4", $"Decrease [{targetItemName}] cost by 25", 50_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 10", 100_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 500", 5000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 5", 10_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 250", 75_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 10", 1_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 150%", 10_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);
@@ -44,19 +40,19 @@ public class CeilingFanUpgrade : ShopUpgrade
         switch (GetLevel())
         {
             case 1:
-                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 1);
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 500);
                 break;
             case 2:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 10);
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 5);
                 break;
             case 3:
-                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 1);
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 250);
                 break;
             case 4:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 25);
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 10);
                 break;
             case 5:
-                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 10);
+                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.5f));
                 break;
         }
 

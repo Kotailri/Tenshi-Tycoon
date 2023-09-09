@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +10,9 @@ public class Upgrade
     public string name;
     public string info;
     public string requirements;
-    public long price;
+    public BigInteger price;
 
-    public Upgrade(string _name, string _info, long _price, string _requirements)
+    public Upgrade(string _name, string _info, BigInteger _price, string _requirements)
     {
         name = _name;
         info = _info;
@@ -29,11 +30,14 @@ public class ShopUpgrade : MonoBehaviour
     [HideInInspector]
     public TextMeshProUGUI upgradeInfoText;
 
+    [HideInInspector]
     public string targetItemName;
+    [HideInInspector]
+    public ShopItem targetShopItem;
 
     private string upgradeName;
     private string upgradeInfo;
-    private long upgradePrice;
+    private BigInteger upgradePrice;
     private string requirementText;
 
     public List<Upgrade> upgradeInfoList = new();
@@ -126,7 +130,7 @@ public class ShopUpgrade : MonoBehaviour
         }
         else if (!CheckRequirements() && affordable)
         {
-            GetComponent<Image>().color = new Color(255f/255f, 139f/255f, 31f/255f, 1);
+            GetComponent<Image>().color = new Color(255f/255f, 189f/255f, 128f/255f, 1);
             GetComponent<Button>().interactable = false;
         }
         else
@@ -194,7 +198,7 @@ public class ShopUpgrade : MonoBehaviour
         upgradeNameText.text = _name;
     }
 
-    public void SetPrice(long _price)
+    public void SetPrice(BigInteger _price)
     {
         upgradePrice = _price;
         upgradePriceText.text = Global.LongToString(_price) + " rings";
