@@ -21,7 +21,7 @@ public class IncomeManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             // DEBUG
-            AddRings(999_999);
+            AddRings(BigInteger.Parse("100000000000000000000000000000000000"));
         }
     }
 

@@ -15,16 +15,16 @@ public class HeadWingFeatherUpgrade : ShopUpgrade
 
             requirementCount = new()
             {
-                2, 10, 25, 60, 80
+                2, 10, 40, 60, 80
             };
 
             upgradeInfoList = new()
             {
-                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 500", 5000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 5", 10_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 250", 75_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 10", 1_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 150%", 10_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 100", 2000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 4", 10_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 250", 100_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 50", 100_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 300", 10_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);
@@ -40,23 +40,26 @@ public class HeadWingFeatherUpgrade : ShopUpgrade
         switch (GetLevel())
         {
             case 1:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 500);
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 100);
                 break;
             case 2:
-                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 5);
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 4);
                 break;
             case 3:
                 targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 250);
                 break;
             case 4:
-                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 10);
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 50);
                 break;
             case 5:
-                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.5f));
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 300);
                 break;
         }
 
-        SetUpgrade(upgradeInfoList[GetLevel()]);
+        if (GetLevel() < upgradeInfoList.Count)
+        {
+            SetUpgrade(upgradeInfoList[GetLevel()]);
+        }
     }
 
     public override bool CheckRequirements()

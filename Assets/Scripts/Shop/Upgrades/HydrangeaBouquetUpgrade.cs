@@ -24,11 +24,11 @@ public class HydrangeaBouquetUpgrade : ShopUpgrade
 
             upgradeInfoList = new()
             {
-                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 2%",         5_000_000_000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 2%",        10_000_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 3%",        40_000_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 5%",       400_000_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 150%",  15_000_000_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 5%",        10_000_000_000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 5%",        10_000_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 20%",       40_000_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 20%",       40_000_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 8x",    15_000_000_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);
@@ -44,23 +44,26 @@ public class HydrangeaBouquetUpgrade : ShopUpgrade
         switch (GetLevel())
         {
             case 1:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.02));
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.05));
                 break;
             case 2:
-                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.02));
-                break;
-            case 3:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.03));
-                break;
-            case 4:
                 targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.05));
                 break;
+            case 3:
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.2));
+                break;
+            case 4:
+                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.2));
+                break;
             case 5:
-                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.5));
+                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 8));
                 break;
         }
 
-        SetUpgrade(upgradeInfoList[GetLevel()]);
+        if (GetLevel() < upgradeInfoList.Count)
+        {
+            SetUpgrade(upgradeInfoList[GetLevel()]);
+        }
     }
 
     public override bool CheckRequirements()

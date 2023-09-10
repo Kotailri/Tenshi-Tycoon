@@ -33,7 +33,7 @@ public class Global
 
     private static string NumToDecimalString(BigInteger num, int pow)
     {
-        int roundDecimals = 6;
+        int roundDecimals = 3;
         BigInteger output = BigInteger.Divide(num, BigInteger.Pow(10, pow));
         int outputLen = output.ToString().Length;
         string str = output.ToString() + "." + num.ToString().Substring(outputLen, roundDecimals);

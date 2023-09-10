@@ -24,11 +24,11 @@ public class JuiceUpgrade : ShopUpgrade
 
             upgradeInfoList = new()
             {
-                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 2%",         3_000_000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 2%",         6_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 3%",         9_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 5%",       100_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 150%", 100_000_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 10%",         3_000_000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 5%",          6_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 15%",         9_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 25%",       100_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 10x",   100_000_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);
@@ -44,23 +44,26 @@ public class JuiceUpgrade : ShopUpgrade
         switch (GetLevel())
         {
             case 1:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.02));
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.1));
                 break;
             case 2:
-                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.02));
-                break;
-            case 3:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.03));
-                break;
-            case 4:
                 targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.05));
                 break;
+            case 3:
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - (long)(targetShopItem.GetPrice() * 0.15));
+                break;
+            case 4:
+                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.25));
+                break;
             case 5:
-                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.5));
+                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 10));
                 break;
         }
 
-        SetUpgrade(upgradeInfoList[GetLevel()]);
+        if (GetLevel() < upgradeInfoList.Count)
+        {
+            SetUpgrade(upgradeInfoList[GetLevel()]);
+        }
     }
 
     public override bool CheckRequirements()

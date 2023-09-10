@@ -18,17 +18,17 @@ public class CeilingFanUpgrade : ShopUpgrade
                 5,
                 10,
                 30,
-                60,
-                80
+                50,
+                75
             };
 
             upgradeInfoList = new()
             {
-                new Upgrade($"{targetItemName} Tier 1", $"Increase [{targetItemName}] tr/s by 1", 500, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 2", $"Decrease [{targetItemName}] cost by 10", 800, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Increase [{targetItemName}] tr/s by 1", 3000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 4", $"Decrease [{targetItemName}] cost by 25", 50_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 10", 100_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 1", $"Increase [{targetItemName}] tr/s by 1",          500, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 2", $"Decrease [{targetItemName}] cost by 15",        3000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 3", $"Increase [{targetItemName}] tr/s by 4",       25_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 50",     250_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 100",  1_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);
@@ -47,20 +47,23 @@ public class CeilingFanUpgrade : ShopUpgrade
                 targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 1);
                 break;
             case 2:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 10);
+                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 15);
                 break;
             case 3:
-                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 1);
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 4);
                 break;
             case 4:
-                targetShopItem.SetShopItemPrice(targetShopItem.GetPrice() - 25);
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 50);
                 break;
             case 5:
-                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 10);
+                targetShopItem.SetShopItemRate(targetShopItem.GetRate() + 100);
                 break;
         }
 
-        SetUpgrade(upgradeInfoList[GetLevel()]);
+        if (GetLevel() < upgradeInfoList.Count)
+        {
+            SetUpgrade(upgradeInfoList[GetLevel()]);
+        }
     }
 
     public override bool CheckRequirements()

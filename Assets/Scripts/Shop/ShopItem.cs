@@ -142,6 +142,9 @@ public class ShopItem : MonoBehaviour
 
     public void SetShopItemPrice(long _price)
     {
+        if (locked)
+            return;
+
         item.SetShopItemPrice(_price);
         shopItemPriceText.text = Global.LongToString(_price) + " rings";
     }
