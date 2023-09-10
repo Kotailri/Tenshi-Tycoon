@@ -5,7 +5,7 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     public Transform upgradeContent;
-    private List<ShopUpgrade> upgradeList = new();
+    public List<ShopUpgrade> upgradeList = new();
     public Transform basePosition;
 
     void Awake()
@@ -22,5 +22,7 @@ public class UpgradeManager : MonoBehaviour
                 yPos -= 130f;
             }
         }
+
+        Global.upgradeManager = this;
     }
 }

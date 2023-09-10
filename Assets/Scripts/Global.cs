@@ -6,8 +6,10 @@ using UnityEngine;
 public class Global
 {
     public static IncomeManager incomeManager;
-    public static ItemManager itemManager;
     public static AnnouncementHandler announcer;
+    
+    public static ItemManager itemManager;
+    public static UpgradeManager upgradeManager;
 
     public static HoverBox hoverBox;
 

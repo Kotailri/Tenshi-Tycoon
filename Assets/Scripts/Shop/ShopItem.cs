@@ -55,7 +55,7 @@ public class ShopItem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!locked)
+        if (!locked && item != null)
             UpdateAffordability();
     }
 
@@ -173,6 +173,11 @@ public class ShopItem : MonoBehaviour
         {
             string an = "haha funny number";
             Global.announcer.CreateAnnouncement(an);
+        }
+
+        if (TryGetComponent(out ItemAchivement ach))
+        {
+            ach.CheckItemAchivements(item.count);
         }
 
         shopItemCountText.text = Global.LongToString(item.count);

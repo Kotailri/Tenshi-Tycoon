@@ -16,6 +16,7 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         transform.localScale = defaultScale;
+        Global.incomeManager.AddRings(clickAmount);
     }
 
     public void OnPointerDown(PointerEventData eventData)

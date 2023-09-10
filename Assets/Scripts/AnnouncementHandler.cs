@@ -26,6 +26,17 @@ public class AnnouncementHandler : MonoBehaviour
         showingPosition = transform.position + new Vector3(0,-90,0);
     }
 
+    public void ClearQueue()
+    {
+        announcementQueue.Clear();
+        if (showing) 
+        {
+            transform.localScale = Vector3.zero;
+        }
+        
+        showing = false;
+    }
+
     public void CreateAnnouncement(string _text, float _time=3.0f)
     {
         Announcement an;
@@ -35,6 +46,7 @@ public class AnnouncementHandler : MonoBehaviour
 
         if (!showing)
         {
+            transform.localScale = Vector3.one;
             StartCoroutine(StartAnnouncementAnim());
         }
     }

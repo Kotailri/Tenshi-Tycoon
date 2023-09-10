@@ -162,6 +162,14 @@ public class ShopUpgrade : MonoBehaviour
         }
     }
 
+    public void SetLevel(int level)
+    {
+        for (int i = 0; i < level; i++)
+        {
+            ApplyUpgrade();
+        }
+    }
+
     public void UpdateMaxLevel(int _level)
     {
         maxLevel = _level;

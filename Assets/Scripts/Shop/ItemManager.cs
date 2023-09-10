@@ -12,13 +12,9 @@ public class ItemManager : MonoBehaviour
     private void Awake()
     {
         Global.itemManager = this;
-    }
-
-    private void Start()
-    {
-        foreach (Transform child in itemsShopContent.transform)
+        foreach (Transform item in itemsShopContent) 
         {
-            Destroy(child.gameObject);
+            shopItems.Add(item.GetComponent<ShopItem>());
         }
 
         InstantiateItems();
@@ -77,16 +73,15 @@ public class ItemManager : MonoBehaviour
     private void PopulateStore()
     {
         Vector3 firstPosition = new Vector3(716.99f, -15f, 0.00f);
-        float yPos = 0.0f;
 
-        foreach (Item item in itemsList)
+        for (int i = 0; i < itemsList.Count; i++)
         {
-            GameObject shopItem = Instantiate(storeItemTemplate, (firstPosition + new Vector3(0,yPos,0)), Quaternion.identity);
-            shopItem.GetComponent<ShopItem>().SetItem(new Item(item.shopname, item.rate, item.price));
-            shopItem.transform.SetParent(itemsShopContent);
-            shopItem.transform.name = item.shopname;
-            shopItems.Add(shopItem.GetComponent<ShopItem>());
-            yPos -= 90f;
+            shopItems[i].SetItem(itemsList[i]);
+            shopItems[i].SetShopItemName(itemsList[i].shopname);
+            shopItems[i].SetShopItemRate(itemsList[i].rate);
+            shopItems[i].SetShopItemPrice(itemsList[i].price);
+
+            shopItems[i].transform.position = firstPosition + new Vector3(0, -90*i, 0);
         }
     }
 
