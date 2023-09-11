@@ -72,7 +72,7 @@ public class ItemManager : MonoBehaviour
 
     private void PopulateStore()
     {
-        Vector3 firstPosition = new Vector3(716.99f, -15f, 0.00f);
+        Vector3 firstPosition = new Vector3(686.99f, -15f, 0.00f);
 
         for (int i = 0; i < itemsList.Count; i++)
         {

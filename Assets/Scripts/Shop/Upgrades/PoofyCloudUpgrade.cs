@@ -15,7 +15,7 @@ public class PoofyCloudUpgrade : ShopUpgrade
 
             requirementCount = new()
             {
-                5,
+                1,
                 10,
                 25,
                 50,

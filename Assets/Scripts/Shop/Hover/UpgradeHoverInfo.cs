@@ -9,13 +9,6 @@ public class UpgradeHoverInfo : HasHoverInfo
 
     public override string GetInfoText()
     {
-        if (shopUpgrade.GetRequirementLock())
-        {
-            return shopUpgrade.GetRequirementText() + $" You have {Global.itemManager.FindShopItem(shopUpgrade.targetItemName).GetCount()}";
-        }
-        else
-        {
-            return "";
-        }
+        return shopUpgrade.GetRequirementText() + $" You have {Global.itemManager.FindShopItem(shopUpgrade.targetItemName).GetCount()}";
     }
 }

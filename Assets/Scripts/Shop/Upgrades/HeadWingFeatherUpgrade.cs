@@ -15,7 +15,7 @@ public class HeadWingFeatherUpgrade : ShopUpgrade
 
             requirementCount = new()
             {
-                2, 10, 40, 60, 80
+                1, 10, 15, 60, 80
             };
 
             upgradeInfoList = new()

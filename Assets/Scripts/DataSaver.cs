@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataSaver : MonoBehaviour
 {
@@ -59,6 +60,7 @@ public class DataSaver : MonoBehaviour
         for (int i = 0; i < sav.itemCounts.Count; i++)
         {
             Global.itemManager.shopItems[i].SetShopItemCount(sav.itemCounts[i]);
+            Global.itemManager.shopItems[i].CheckLimit();
         }
 
         // Upgrade Levels
@@ -77,6 +79,15 @@ public class DataSaver : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveData();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            File.Delete(filename);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
 

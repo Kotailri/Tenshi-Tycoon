@@ -59,18 +59,10 @@ public class IncomeManager : MonoBehaviour
         ringText.text = Global.LongToString(rings, true);
     }
 
-    private bool millionaire = false;
-
     public void AddRings(BigInteger _rings)
     {
         rings += _rings;
         ringText.text = Global.LongToString(rings, true);
-
-        if (rings > 1_000_000 && !millionaire)
-        {
-            Global.announcer.CreateAnnouncement("You're a millionaire! Congrats!");
-            millionaire = true;
-        }
     }
 
     private void OnEnable()

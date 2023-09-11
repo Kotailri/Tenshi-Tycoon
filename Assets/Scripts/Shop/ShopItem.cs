@@ -13,6 +13,9 @@ public class ShopItem : MonoBehaviour
     [HideInInspector]
     public TextMeshProUGUI shopItemCountText;
 
+    private Button plus10Button;
+    private Button plusInfButton;
+
     [HideInInspector]
     public Item item;
     private bool canBuy = false;
@@ -41,6 +44,35 @@ public class ShopItem : MonoBehaviour
                 {
                     shopItemCountText = tmp;
                     continue;
+                }
+            }
+
+            if (t.TryGetComponent(out Button button))
+            {
+                if (t.gameObject.name == "plus10")
+                {
+                    button.onClick.AddListener(() => 
+                    {
+                        if (Global.incomeManager.CanAfford(item.price*10) && GetCount()+10 <= item.limit && !locked)
+                        {
+                            for (int i = 0; i < 10; i++)
+                            {
+                                PurchaseItem();
+                            }
+                        }
+                        
+                    });
+                }
+
+                if (t.gameObject.name == "plusinf")
+                {
+                    button.onClick.AddListener(() => 
+                    {
+                        while (!locked && Global.incomeManager.CanAfford(item.price))
+                        {
+                            PurchaseItem();
+                        }
+                    });
                 }
             }
             
@@ -92,13 +124,22 @@ public class ShopItem : MonoBehaviour
 
         GetComponent<HasHoverInfo>().Refresh();
 
+        CheckLimit();
+    }
+
+    public void SetLock(bool isLocked)
+    {
+        locked = isLocked;
+        GetComponent<Image>().color = Color.green;
+        shopItemPriceText.text = "Sold Out!";
+        GetComponent<Button>().interactable = false;
+    }
+
+    public void CheckLimit()
+    {
         if (item.count >= item.limit)
         {
-            GetComponent<Image>().color = Color.green;
-            shopItemPriceText.text = "Sold Out!";
-            GetComponent<Button>().interactable = false;
-            
-            locked = true;
+            SetLock(true);
         }
     }
 
@@ -158,6 +199,15 @@ public class ShopItem : MonoBehaviour
     {
         item.SetShopItemCount(_count);
         shopItemCountText.text = Global.LongToString(_count);
+    }
+
+    public void IncrementItemCount(long _count)
+    {
+        for (int i = 0; i < _count; i++)
+        {
+
+            IncrementItemCount();
+        }
     }
 
     public void IncrementItemCount()

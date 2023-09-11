@@ -15,7 +15,7 @@ public class HydrangeaBouquetUpgrade : ShopUpgrade
 
             requirementCount = new()
             {
-                3,
+                1,
                 5,
                 8,
                 9,

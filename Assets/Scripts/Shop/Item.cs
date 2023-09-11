@@ -5,13 +5,14 @@ public class Item
     public long price;
     public long rate;
     public long count;
-    public long limit = 100;
+    public long limit;
 
     public Item(string _name, long _rate, long _price)
     {
         shopname = _name;
         price = _price;
         rate = _rate;
+        limit = 100;
 
         count = 0;
     }
