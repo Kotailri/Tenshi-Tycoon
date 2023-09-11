@@ -7,6 +7,19 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     private Vector3 clickedScale;
     private Vector3 defaultScale;
 
+    public bool bonusRings = false;
+    public bool bonusRateTime = false;
+
+    private void Awake()
+    {
+        Global.ringClicker = this;
+    }
+
+    public void AddClickAmount(long _clickAmount)
+    {
+        clickAmount += _clickAmount;
+    }
+
     private void Start()
     {
         defaultScale = transform.localScale;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
@@ -10,8 +11,12 @@ public class Global
     
     public static ItemManager itemManager;
     public static UpgradeManager upgradeManager;
+    public static PerkManager perkManager;
 
     public static HoverBox hoverBox;
+    public static RingClicked ringClicker;
+
+    public static List<IncomeUpdateListener> incomeListeners = new();
 
     public static void InvokeLambda(Action action, float time)
     {

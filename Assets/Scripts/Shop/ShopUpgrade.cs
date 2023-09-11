@@ -21,7 +21,7 @@ public class Upgrade
     }
 }
 
-public class ShopUpgrade : MonoBehaviour
+public class ShopUpgrade : IncomeUpdateListener
 {
     [HideInInspector]
     public TextMeshProUGUI upgradeNameText;
@@ -91,7 +91,7 @@ public class ShopUpgrade : MonoBehaviour
         SetRequirementText(up.requirements);
     }
 
-    private void FixedUpdate()
+    public override void OnIncomeUpdate()
     {
         if (!locked)
         {

@@ -32,7 +32,7 @@ public class IncomeManager : MonoBehaviour
 
         if (collection >= (updateRate * 100))
         {
-            rings += (long)(collection * updateRate);
+            AddRings((long)(collection * updateRate));
         }
         else
         {
@@ -42,7 +42,7 @@ public class IncomeManager : MonoBehaviour
         if (partialRings >= 1)
         {
             partialRings -= 1;
-            rings += 1;
+            AddRings(1);
         }
         
         ringText.text = Global.LongToString(rings, true);
@@ -57,12 +57,22 @@ public class IncomeManager : MonoBehaviour
     {
         rings -= _rings;
         ringText.text = Global.LongToString(rings, true);
+        NotifyIncomeListeners();
+    }
+
+    private void NotifyIncomeListeners()
+    {
+        foreach (IncomeUpdateListener listener in Global.incomeListeners)
+        {
+            listener.OnIncomeUpdate();
+        }
     }
 
     public void AddRings(BigInteger _rings)
     {
         rings += _rings;
         ringText.text = Global.LongToString(rings, true);
+        NotifyIncomeListeners();
     }
 
     private void OnEnable()

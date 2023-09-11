@@ -15,6 +15,7 @@ public class DataSaver : MonoBehaviour
         BigInteger ringCount = Global.incomeManager.rings;
         List<long> itemCounts = new();
         List<int> upgradeLevels = new();
+        List<bool> perkUnlocks = new();
 
         // Item Count
         foreach (ShopItem item in Global.itemManager.shopItems) 
@@ -28,7 +29,13 @@ public class DataSaver : MonoBehaviour
             upgradeLevels.Add(upgrade.GetLevel());
         }
 
-        SaveFile fileToSave = new(itemCounts, upgradeLevels, ringCount.ToString());
+        // Perk Unlocks
+        foreach (Perk perk in Global.perkManager.perkList) 
+        {
+            perkUnlocks.Add(perk.IsPurchased());
+        }
+
+        SaveFile fileToSave = new(itemCounts, upgradeLevels, perkUnlocks, ringCount.ToString());
         File.WriteAllText(filename, JsonUtility.ToJson(fileToSave));
     }
 
@@ -69,6 +76,15 @@ public class DataSaver : MonoBehaviour
             Global.upgradeManager.upgradeList[i].SetLevel(sav.upgradeLevels[i]);
         }
 
+        // Perk Unlocks
+        for (int i = 0; i < sav.perkUnlocks.Count; i++)
+        {
+            if (sav.perkUnlocks[i])
+            {
+                Global.perkManager.perkList[i].LoadPerk();
+            }
+        }
+
     }
 
     private void Start()
@@ -96,12 +112,14 @@ public class SaveFile
 {
     public List<long> itemCounts;
     public List<int> upgradeLevels;
+    public List<bool> perkUnlocks;
     public string ringCount;
 
-    public SaveFile(List<long> itemCounts, List<int> upgradeLevels, string ringCount)
+    public SaveFile(List<long> itemCounts, List<int> upgradeLevels, List<bool> perkUnlocks, string ringCount)
     {
         this.itemCounts = itemCounts;
         this.upgradeLevels = upgradeLevels;
         this.ringCount = ringCount;
+        this.perkUnlocks = perkUnlocks;
     }
 }

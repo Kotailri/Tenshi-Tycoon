@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class ShopItem : MonoBehaviour
+public class ShopItem : IncomeUpdateListener
 {
     [HideInInspector]
     public TextMeshProUGUI shopItemNameText;
@@ -83,12 +83,6 @@ public class ShopItem : MonoBehaviour
             if (!locked)
                 PurchaseItem();
         });
-    }
-
-    private void FixedUpdate()
-    {
-        if (!locked && item != null)
-            UpdateAffordability();
     }
 
     public void UpdateAffordability()
@@ -233,4 +227,9 @@ public class ShopItem : MonoBehaviour
         shopItemCountText.text = Global.LongToString(item.count);
     }
 
+    public override void OnIncomeUpdate()
+    {
+        if (!locked && item != null)
+            UpdateAffordability();
+    }
 }
