@@ -26,7 +26,7 @@ public class PerkManager : MonoBehaviour
         }
     }
 
-    public Perk FindPerk(string _perkName)
+    public Perk FindPerkByName(string _perkName)
     {
         foreach (Perk perk in perkList)
         {
@@ -35,6 +35,15 @@ public class PerkManager : MonoBehaviour
                 return perk;
             }
         }
+        Debug.LogWarning($"Perk '{_perkName}' not found!");
         return null;
+    }
+
+    public void CheckPerkRequirements()
+    {
+        foreach (Perk perk in perkList)
+        {
+            perk.CheckRequiredPerk();
+        }
     }
 }

@@ -26,9 +26,9 @@ public class CeilingFanUpgrade : ShopUpgrade
             {
                 new Upgrade($"{targetItemName} Tier 1", $"Increase [{targetItemName}] tr/s by 1",          500, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 2", $"Decrease [{targetItemName}] cost by 25",        5000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Increase [{targetItemName}] tr/s by 4",       25_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 50",     250_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 100",  1_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 3", $"Increase [{targetItemName}] tr/s by 4",       10_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 50",     200_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 100",    500_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);

@@ -68,10 +68,9 @@ public class ShopItem : IncomeUpdateListener
                 {
                     button.onClick.AddListener(() => 
                     {
-                        while (!locked && Global.incomeManager.CanAfford(item.price))
-                        {
-                            PurchaseItem();
-                        }
+                        do { 
+                            PurchaseItem(); 
+                        } while (!locked && Global.incomeManager.CanAfford(item.price));
                     });
                 }
             }
@@ -95,15 +94,33 @@ public class ShopItem : IncomeUpdateListener
         GetComponent<Button>().interactable = canBuy;
     }
 
-    public void UpdateItemLimit(long _limit)
+    public void UpdateItemLimit(long _limit, bool increaseFrom=false)
     {
-        if (_limit >= item.limit)
+        long lim = _limit;
+        if (increaseFrom)
         {
-            GetComponent<Image>().color = Color.white;
-            shopItemPriceText.text = Global.LongToString(item.price) + " rings";
-            locked = false;
+            lim = _limit + item.limit;
         }
-        item.limit = _limit;
+
+        if (lim >= item.limit)
+        {
+            if (lim == item.count)
+            {
+                GetComponent<Image>().color = Color.green;
+                shopItemPriceText.text = "Sold Out!";
+                GetComponent<Button>().interactable = false;
+                locked = true;
+            }
+            else
+            {
+                GetComponent<Image>().color = Color.white;
+                shopItemPriceText.text = Global.LongToString(item.price) + " rings";
+                locked = false;
+            }
+            
+        }
+        item.limit = lim;
+        OnIncomeUpdate();
     }
 
     private void PurchaseItem()

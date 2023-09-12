@@ -28,7 +28,7 @@ public class ParfaitUpgrade : ShopUpgrade
                 new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 5%",         25_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 10%",        50_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 10%",       100_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 10x",   100_000_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 10x",       500_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);

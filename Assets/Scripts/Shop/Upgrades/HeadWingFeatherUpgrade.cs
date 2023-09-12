@@ -22,9 +22,9 @@ public class HeadWingFeatherUpgrade : ShopUpgrade
             {
                 new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 100", 2000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 4", 10_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 250", 100_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 50", 100_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 300", 10_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 250", 25_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 50", 25_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 300", 100_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);

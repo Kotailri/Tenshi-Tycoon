@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class ClickUpPerk : Perk
 {
-    public int clickIncreaseAmount = 2;
+    public long clickIncreaseAmount;
 
     public void Start()
     {
-        SetInfo("Click Efficiency I", $"Increases amount of rings gained per click by {clickIncreaseAmount}", 1500);
-        UnhidePerk();
+        SetPerkDescription($"Increases amount of rings gained per click by {clickIncreaseAmount}");
     }
 
     public override void ApplyPerk()

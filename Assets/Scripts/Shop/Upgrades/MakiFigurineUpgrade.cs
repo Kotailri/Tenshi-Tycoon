@@ -24,9 +24,9 @@ public class MakiFigurineUpgrade : ShopUpgrade
 
             upgradeInfoList = new()
             {
-                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 8%",         85_000_000_000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 8%",        170_000_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 12%",       300_000_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 1", $"Decrease [{targetItemName}] cost by 8%",         75_000_000_000, $"Requires at least {requirementCount[0]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 8%",        100_000_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
+                new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 12%",       250_000_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 12%",     1_000_000_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 5x",      5_000_000_000_000, $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
