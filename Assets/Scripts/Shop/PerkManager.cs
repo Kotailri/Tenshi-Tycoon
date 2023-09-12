@@ -12,6 +12,11 @@ public class PerkManager : MonoBehaviour
     {
         Global.perkManager = this;
 
+        // PositionPerks();
+    }
+
+    public void PositionPerks()
+    {
         Vector3 firstPosition = basePosition.position;
         float yPos = 0.0f;
         foreach (Transform t in perkStoreContent.transform)

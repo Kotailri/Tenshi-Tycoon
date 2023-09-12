@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public abstract class Perk : IncomeUpdateListener
 {
@@ -19,9 +20,20 @@ public abstract class Perk : IncomeUpdateListener
     [Header("Requirement")]
     public Perk requiredPerk = null;
 
+    [Space(15)]
+    [Header("Link")]
+    public List<Perk> linkedPerks = new();
+    public bool perkDisabled = false;
+
     public void CheckRequiredPerk()
     {
         if (requiredPerk == null || purchased) { return; }
+
+        if (requiredPerk.perkDisabled)
+        {
+            DisablePerk();
+            return;
+        }
 
         if (requiredPerk.IsPurchased())
         {
@@ -115,6 +127,24 @@ public abstract class Perk : IncomeUpdateListener
         GetComponent<Image>().color = Color.white;
     }
 
+    public void DisableLinkedPerks()
+    {
+        foreach (Perk p in linkedPerks)
+        {
+            p.DisablePerk();
+        }
+    }
+
+    public void DisablePerk()
+    {
+        perkDisabled = true;
+        nameText.text = "Path Locked";
+        priceText.text = Global.LongToString(PerkPrice) + " rings";
+        infoText.text = PerkDescription;
+        GetComponent<Image>().color = Color.gray;
+        GetComponent<Button>().interactable = false;
+    }
+
     public void PurchasePerk()
     {
         if (Global.incomeManager.CanAfford(PerkPrice) && !purchased)
@@ -136,12 +166,15 @@ public abstract class Perk : IncomeUpdateListener
         priceText.text = "Purchased!";
         Global.perkManager.CheckPerkRequirements();
         ApplyPerk();
+        DisableLinkedPerks();
+        
     }
 
     public override void OnIncomeUpdate()
     {
-        if (purchased)
+        if (purchased || perkDisabled)
             return;
+        Global.perkManager.CheckPerkRequirements();
 
         if (Global.incomeManager.CanAfford(PerkPrice) && !isHidden)
         {
