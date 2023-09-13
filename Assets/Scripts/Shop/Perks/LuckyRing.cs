@@ -14,6 +14,7 @@ public class LuckyRing : Perk
 
     void Start()
     {
-        SetPerkDescription($"Increases chance for 10x bonus rings on click by {clickBonusIncreasePercent}%");
+        if (PerkDescription == "")
+            SetPerkDescription($"Increases chance for 10x bonus rings on click by {clickBonusIncreasePercent}%");
     }
 }

@@ -46,7 +46,6 @@ public class TenshiBlessing : Perk
         {
             purchased = false;
             GetComponent<Image>().color = Color.white;
-            priceText.text = "Purchased!";
         }
     }
 
