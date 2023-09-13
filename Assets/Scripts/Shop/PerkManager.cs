@@ -12,7 +12,7 @@ public class PerkManager : MonoBehaviour
     {
         Global.perkManager = this;
 
-        // PositionPerks();
+        //PositionPerks();
     }
 
     public void PositionPerks()

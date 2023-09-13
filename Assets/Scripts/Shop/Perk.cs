@@ -13,7 +13,7 @@ public abstract class Perk : IncomeUpdateListener
     public TextMeshProUGUI priceText;
     public TextMeshProUGUI infoText;
 
-    private bool purchased = false;
+    public bool purchased = false;
     private bool isHidden = false;
 
     [Space(15)]
@@ -74,7 +74,15 @@ public abstract class Perk : IncomeUpdateListener
             }
         }
         nameText.text = PerkName;
-        priceText.text = Global.LongToString(PerkPrice) + " rings";
+        if (PerkPrice == 0)
+        {
+            priceText.text = "Free";
+        }
+        else
+        {
+            priceText.text = Global.LongToString(PerkPrice) + " rings";
+        }
+        
         infoText.text = PerkDescription;
         CheckRequiredPerk();
     }
@@ -101,7 +109,16 @@ public abstract class Perk : IncomeUpdateListener
     public void SetPerkPrice(long _price)
     {
         PerkPrice = _price;
-        if (!isHidden) { priceText.text = Global.LongToString(PerkPrice) + " rings"; }
+        if (!isHidden) {
+            if (PerkPrice == 0)
+            {
+                priceText.text = "Free";
+            }
+            else
+            {
+                priceText.text = Global.LongToString(PerkPrice) + " rings";
+            }
+        }
     }
 
     public void HidePerk()
@@ -167,7 +184,6 @@ public abstract class Perk : IncomeUpdateListener
         Global.perkManager.CheckPerkRequirements();
         ApplyPerk();
         DisableLinkedPerks();
-        
     }
 
     public override void OnIncomeUpdate()

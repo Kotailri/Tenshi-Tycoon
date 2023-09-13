@@ -28,6 +28,7 @@ public class IncomeManager : MonoBehaviour
     private void CollectRings()
     {
         long collection = Global.itemManager.GetCollectiveRate();
+        rate = collection;
         rateText.text = Global.LongToString(collection) + " tr/s";
 
         if (collection >= (updateRate * 100))

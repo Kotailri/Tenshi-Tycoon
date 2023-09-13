@@ -15,6 +15,11 @@ public class HasHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         isEnabled = true;
     }
 
+    public bool IsShowing()
+    {
+        return showing;
+    }
+
     public void DisableHoverBox()
     {
         isEnabled = false;
