@@ -9,19 +9,22 @@ public class MenuWithButton
     public Button button;
     public Transform menu;
     public int index;
+
+    [HideInInspector]
+    public Vector3 offPosition;
 }
 
 public class MenuSwapper : MonoBehaviour
 {
     public List<MenuWithButton> menus = new();
     private Vector3 onPosition = new(995.35f, 367.61f, 0.0f);
-    private Vector3 offPosition = new(1663.0f, 367.61f, 0.0f);
 
-    void Start()
+    void Awake()
     {
         for (int k = 0; k < menus.Count; k++)
         {
             menus[k].index = k;
+            menus[k].offPosition = menus[k].menu.position;
         }
 
         foreach (MenuWithButton mb in menus)
@@ -36,7 +39,7 @@ public class MenuSwapper : MonoBehaviour
     {
         for (int i = 0; i < menus.Count; i++)
         {
-            menus[i].menu.position = offPosition;
+            menus[i].menu.position = menus[i].offPosition;
             menus[i].button.interactable = true;
         }
         menus[index].menu.position = onPosition;

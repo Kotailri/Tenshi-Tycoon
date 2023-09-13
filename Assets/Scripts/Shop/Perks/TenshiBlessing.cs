@@ -70,7 +70,7 @@ public class TenshiBlessing : Perk
             }
             else
             {
-                hover.SetRefreshText($"Blessing available in {(int)remainingTime/60}:{(int)remainingTime%60}");
+                hover.SetRefreshText($"Blessing available in {(int)remainingTime/60}:{((int)remainingTime%60).ToString().PadLeft(2,'0')}");
             }
 
         }

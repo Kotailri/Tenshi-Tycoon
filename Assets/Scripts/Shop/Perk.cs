@@ -29,11 +29,11 @@ public abstract class Perk : IncomeUpdateListener
     {
         if (requiredPerk == null || purchased) { return; }
 
-        if (requiredPerk.perkDisabled)
+        /*if (requiredPerk.perkDisabled)
         {
             DisablePerk();
             return;
-        }
+        }*/
 
         if (requiredPerk.IsPurchased())
         {

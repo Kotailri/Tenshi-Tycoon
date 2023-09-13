@@ -18,10 +18,30 @@ public class IncomeManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        // DEBUG
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            // DEBUG
-            AddRings(BigInteger.Parse("10000000"));
+            AddRings(BigInteger.Parse("100"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            AddRings(BigInteger.Parse("1000"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            AddRings(BigInteger.Parse("10000"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            AddRings(BigInteger.Parse("100000"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            AddRings(BigInteger.Parse("1000000"));
         }
     }
 
