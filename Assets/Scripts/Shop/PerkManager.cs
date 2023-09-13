@@ -12,7 +12,7 @@ public class PerkManager : MonoBehaviour
     {
         Global.perkManager = this;
 
-        //PositionPerks();
+        PositionPerks();
     }
 
     public void PositionPerks()
@@ -49,6 +49,14 @@ public class PerkManager : MonoBehaviour
         foreach (Perk perk in perkList)
         {
             perk.CheckRequiredPerk();
+        }
+    }
+
+    public void ApplyPerkUpdates()
+    {
+        foreach (Perk perk in perkList)
+        {
+            perk.ApplyPerkUpdate();
         }
     }
 }

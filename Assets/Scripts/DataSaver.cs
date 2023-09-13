@@ -81,7 +81,7 @@ public class DataSaver : MonoBehaviour
         {
             if (sav.perkUnlocks[i])
             {
-                Global.perkManager.perkList[i].LoadPerk();
+                Global.perkManager.perkList[i].LoadPerkFromSave();
             }
         }
 

@@ -33,6 +33,13 @@ public class TenshiBlessing : Perk
         timerStopped = false;
     }
 
+    public override void LoadPerkFromSave()
+    {
+        base.LoadPerkFromSave();
+        priceText.text = "Loading";
+        GetComponent<Image>().color = new Color(0.85f, 0.85f, 0.85f, 0.8f);
+    }
+
     private void RefreshPerk()
     {
         if (IsPurchased()) 

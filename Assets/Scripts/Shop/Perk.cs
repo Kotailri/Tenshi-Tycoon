@@ -176,7 +176,7 @@ public abstract class Perk : IncomeUpdateListener
         return purchased;
     }
 
-    public void LoadPerk()
+    public virtual void LoadPerk()
     {
         purchased = true;
         GetComponent<Image>().color = Color.green;
@@ -184,6 +184,11 @@ public abstract class Perk : IncomeUpdateListener
         Global.perkManager.CheckPerkRequirements();
         ApplyPerk();
         DisableLinkedPerks();
+    }
+
+    public virtual void LoadPerkFromSave()
+    {
+        LoadPerk();
     }
 
     public override void OnIncomeUpdate()
@@ -200,6 +205,11 @@ public abstract class Perk : IncomeUpdateListener
         {
             GetComponent<Button>().interactable = false;
         }
+    }
+
+    public virtual void ApplyPerkUpdate()
+    {
+
     }
 
     public abstract void ApplyPerk();

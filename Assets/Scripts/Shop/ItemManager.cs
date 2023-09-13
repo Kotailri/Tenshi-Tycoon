@@ -40,7 +40,7 @@ public class ItemManager : MonoBehaviour
             new Item("Tenshi Wing",               650_000_000,      140_000_000_000_000),
             new Item("Amelia Watson Hat",       4_300_000_000,    1_700_000_000_000_000),
             new Item("Onion Ring Factory",     29_000_000_000,   21_000_000_000_000_000),
-            new Item("Tenshi Wish",      210_000_000_000,  260_000_000_000_000_000)
+            new Item("Tenshi Wish",           210_000_000_000,  260_000_000_000_000_000)
         };
     }
 

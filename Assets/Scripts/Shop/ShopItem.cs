@@ -201,29 +201,41 @@ public class ShopItem : IncomeUpdateListener
         shopItemPriceText.text = Global.LongToString(_price) + " rings";
     }
 
-    public void SetShopItemRate(long _rate)
+    public void SetShopItemRate(long _rate, bool countFrom=false)
     {
-        item.SetShopItemRate(_rate);
+        if (countFrom)
+        {
+            item.SetShopItemRate(_rate + item.rate);
+        }
+        else
+        {
+            item.SetShopItemRate(_rate);
+        }
+        
     }
 
     public void SetShopItemCount(long _count)
     {
         item.SetShopItemCount(_count);
         shopItemCountText.text = Global.LongToString(_count);
+        CheckLimit();
     }
 
     public void IncrementItemCount(long _count)
     {
         for (int i = 0; i < _count; i++)
         {
-
             IncrementItemCount();
         }
+        CheckLimit();
     }
 
     public void IncrementItemCount()
     {
         item.IncrementItemCount();
+
+        Global.perkManager.ApplyPerkUpdates();
+
         if (item.count == 1)
         {
             string an = $"Bought [{item.shopname}] for the first time!";
