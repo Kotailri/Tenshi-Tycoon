@@ -23,7 +23,7 @@ public class AnnouncementHandler : MonoBehaviour
     {
         Global.announcer = this;
         hiddenPosition = transform.position;
-        showingPosition = transform.position + new Vector3(0,-90,0);
+        showingPosition = transform.position + new Vector3(525, 0,0);
     }
 
     public void ClearQueue()

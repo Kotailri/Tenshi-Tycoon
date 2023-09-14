@@ -15,6 +15,10 @@ public class PerkManager : MonoBehaviour
     {
         Global.perkManager = this;
         firstPosition = basePosition.position;
+    }
+
+    private void Start()
+    {
         PositionPerks();
         CheckPerkRequirements();
     }

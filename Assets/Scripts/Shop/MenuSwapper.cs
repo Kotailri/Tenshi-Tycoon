@@ -17,7 +17,7 @@ public class MenuWithButton
 public class MenuSwapper : MonoBehaviour
 {
     public List<MenuWithButton> menus = new();
-    private Vector3 onPosition = new(995.35f, 367.61f, 0.0f);
+    private Vector3 onPosition = new(970f, 367.61f, 0.0f);
 
     void Awake()
     {

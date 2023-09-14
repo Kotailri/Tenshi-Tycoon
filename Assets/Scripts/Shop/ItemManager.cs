@@ -81,7 +81,7 @@ public class ItemManager : MonoBehaviour
             shopItems[i].SetShopItemRate(itemsList[i].rate);
             shopItems[i].SetShopItemPrice(itemsList[i].price);
 
-            shopItems[i].transform.position = firstPosition + new Vector3(0, -90*i, 0);
+            //shopItems[i].transform.position = firstPosition + new Vector3(0, -90*i, 0);
         }
     }
 
