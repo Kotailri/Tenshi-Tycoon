@@ -9,7 +9,7 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     private Vector3 defaultScale;
 
     public int bonusRingPercent = 0;
-    public bool bonusRateTime = false;
+    public int boostChancePercent = 0;
 
     private void Awake()
     {
@@ -33,9 +33,18 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         {
             Global.incomeManager.AddRings(clickAmount * 10);
         }
+        else if (Global.incomeManager.boostEnabled)
+        {
+            Global.incomeManager.AddRings(clickAmount * Global.incomeManager.GetBoostMultiplier());
+        }
         else
         {
             Global.incomeManager.AddRings(clickAmount);
+        }
+
+        if (Random.Range(0f, 1f) < ((float)boostChancePercent / (float)100))
+        {
+            Global.incomeManager.StartBoost();
         }
     }
 

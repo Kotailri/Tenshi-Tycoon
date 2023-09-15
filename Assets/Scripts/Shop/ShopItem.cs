@@ -13,13 +13,15 @@ public class ShopItem : IncomeUpdateListener
     [HideInInspector]
     public TextMeshProUGUI shopItemCountText;
 
-    private Button plus10Button;
-    private Button plusInfButton;
-
     [HideInInspector]
     public Item item;
+
     private bool canBuy = false;
     private bool locked = false;
+
+    private long discountAmount = 0;
+    [HideInInspector]
+    public long sharedDiscountAmount = 0;
 
     private void OnEnable()
     {
@@ -84,6 +86,22 @@ public class ShopItem : IncomeUpdateListener
         });
     }
 
+    public void AddTempDiscount(float discount)
+    {
+        discountAmount += (long)(item.price * discount);
+
+        SetShopItemPrice(item.price - (long)(item.price * discount));
+        UpdateAffordability();
+    }
+
+    public void AddSharedTempDiscount(float discount)
+    {
+        sharedDiscountAmount += (long)(item.price * discount);
+        
+        SetShopItemPrice(item.price - (long)(item.price * discount));
+        UpdateAffordability();
+    }
+
     public void UpdateAffordability()
     {
         bool affordable = Global.incomeManager.CanAfford(item.price);
@@ -92,6 +110,11 @@ public class ShopItem : IncomeUpdateListener
 
         canBuy = affordable;
         GetComponent<Button>().interactable = canBuy;
+
+        if (item.price < 0)
+        {
+            SetShopItemPrice(0);
+        }
     }
 
     public void UpdateItemLimit(long _limit, bool increaseFrom=false)
@@ -133,8 +156,22 @@ public class ShopItem : IncomeUpdateListener
         Global.incomeManager.SubtractRings(item.price);
         IncrementItemCount();
 
-        GetComponent<HasHoverInfo>().Refresh();
+        SetShopItemPrice(item.price + discountAmount);
+        discountAmount = 0;
+        
+        foreach (ShopItem si in Global.itemManager.shopItems)
+        {
+            si.SetShopItemPrice(si.GetPrice() + si.sharedDiscountAmount);
+            si.sharedDiscountAmount = 0;
 
+            if (si.GetPrice() < 0)
+            {
+                si.SetShopItemPrice(0);
+            }
+        }
+
+        UpdateAffordability();
+        GetComponent<HasHoverInfo>().Refresh();
         CheckLimit();
     }
 

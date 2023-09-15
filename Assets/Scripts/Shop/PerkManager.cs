@@ -25,32 +25,21 @@ public class PerkManager : MonoBehaviour
 
     public void PositionPerks()
     {
-        float yPos = 0.0f;
         foreach (Transform t in perkStoreContent.transform)
         {
             if (t.TryGetComponent(out Perk perk))
             {
                 perkList.Add(perk);
-
-                t.transform.position = firstPosition + new Vector3(0, yPos, 0);
-                yPos -= 170f;
             }
         }
-    }
 
-    private void SortPerksByPrice()
-    {
-        foreach (Perk perk in perkList.OrderBy(o => o.PerkPrice).ToList())
-        {
-            print(perk.PerkName);
-        }
-    }
+        perkList = perkList.OrderBy(o => o.PerkPrice).ToList();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O)) 
+        float yPos = 0.0f;
+        foreach (Perk perk in perkList)
         {
-            SortPerksByPrice(); 
+            perk.gameObject.transform.position = firstPosition + new Vector3(0, yPos, 0);
+            yPos -= 170f;
         }
     }
 
