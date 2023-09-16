@@ -32,14 +32,17 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         if (Random.Range(0f, 1f) < ((float)bonusRingPercent/(float)100))
         {
             Global.incomeManager.AddRings(clickAmount * 10);
+            Global.clickEffectSpawner.SpawnClickEffect(clickAmount * 10, true);
         }
         else if (Global.incomeManager.boostEnabled)
         {
             Global.incomeManager.AddRings(clickAmount * Global.incomeManager.GetBoostMultiplier());
+            Global.clickEffectSpawner.SpawnClickEffect(clickAmount * Global.incomeManager.GetBoostMultiplier());
         }
         else
         {
             Global.incomeManager.AddRings(clickAmount);
+            Global.clickEffectSpawner.SpawnClickEffect(clickAmount);
         }
 
         if (Random.Range(0f, 1f) < ((float)boostChancePercent / (float)100))

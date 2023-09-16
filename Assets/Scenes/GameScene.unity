@@ -858,7 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PerkName: Click Up 2
-  PerkPrice: 1000000
+  PerkPrice: 100000
   PerkDescription: Increases amount of rings gained per click by 20
   nameText: {fileID: 402269786}
   priceText: {fileID: 104264495}
@@ -31489,7 +31489,7 @@ MonoBehaviour:
   requiredPerk: {fileID: 0}
   linkedPerks: []
   perkDisabled: 0
-  boostChance: 2
+  boostChance: 1
 --- !u!114 &1111032053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60306,7 +60306,7 @@ MonoBehaviour:
   hellBackground: {fileID: 0}
   defaultBackground: {fileID: 21300000, guid: b434f924ab572e640a10120f5eaa26b8, type: 3}
   cursedTenshi: {fileID: 0}
-  defaultTenshi: {fileID: 0}
+  defaultTenshi: {fileID: 21300000, guid: 794bc68cb1e70094999beae805a100a0, type: 3}
 --- !u!4 &1856688453
 Transform:
   m_ObjectHideFlags: 0

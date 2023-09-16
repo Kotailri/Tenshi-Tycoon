@@ -18,6 +18,7 @@ public class Global
     public static HoverBox hoverBox;
     public static RingClicked ringClicker;
     public static AnnouncementHandler announcer;
+    public static ClickEffectSpawner clickEffectSpawner;
 
     // Cosmetic Defaults
     public static Color defaultRingColor = new(0.9782464f, 1, 0.3066038f, 1);
