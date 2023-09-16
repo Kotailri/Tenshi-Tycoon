@@ -12,6 +12,7 @@ public class IncomeManager : MonoBehaviour
     [Header("Rings")]
     public BigInteger rings = 0;
     public BigInteger rate = 0;
+    public BigInteger totalRings = 0;
 
     private readonly float updateRate = 0.1f;
     private float partialRings = 0.0f;
@@ -49,7 +50,7 @@ public class IncomeManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            AddRings(BigInteger.Parse("1000000"));
+            AddRings(BigInteger.Parse("1000000000000000000"));
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -132,6 +133,7 @@ public class IncomeManager : MonoBehaviour
     {
         rings += _rings;
         ringText.text = Global.LongToString(rings, true);
+        if (rings > totalRings) { totalRings = rings; }
         NotifyIncomeListeners();
     }
 
