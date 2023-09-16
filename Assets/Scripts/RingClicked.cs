@@ -44,11 +44,6 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
             Global.incomeManager.AddRings(clickAmount);
             Global.clickEffectSpawner.SpawnClickEffect(clickAmount);
         }
-
-        if (Random.Range(0f, 1f) < ((float)boostChancePercent / (float)100))
-        {
-            Global.incomeManager.StartBoost();
-        }
     }
 
     public void AddBonusRingChance(int bonusRingPercent)
@@ -64,6 +59,10 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (Random.Range(0f, 1f) < ((float)boostChancePercent / (float)100))
+        {
+            Global.incomeManager.StartBoost();
+        }
         OnClickAction();
         transform.localScale = clickedScale;
     }
