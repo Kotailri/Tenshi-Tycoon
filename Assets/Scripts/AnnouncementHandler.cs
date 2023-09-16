@@ -19,11 +19,23 @@ public class AnnouncementHandler : MonoBehaviour
     private Vector3 showingPosition;
     private bool showing = false;
 
-    private void Start()
+    private bool announcementsLocked = false;
+
+    private void Awake()
     {
         Global.announcer = this;
         hiddenPosition = transform.position;
         showingPosition = transform.position + new Vector3(525, 0,0);
+    }
+
+    public void LockAnnouncer()
+    {
+        announcementsLocked = true;
+    }
+
+    public void UnlockAnnouncer()
+    {
+        announcementsLocked = false;
     }
 
     public void ClearQueue()
@@ -39,6 +51,12 @@ public class AnnouncementHandler : MonoBehaviour
 
     public void CreateAnnouncement(string _text, float _time=3.0f)
     {
+        if (announcementsLocked)
+        {
+            ClearQueue();
+            return;
+        }
+
         Announcement an;
         an.text = _text;
         an.time = _time;
@@ -53,6 +71,9 @@ public class AnnouncementHandler : MonoBehaviour
 
     private IEnumerator StartAnnouncementAnim()
     {
+        if (announcementsLocked)
+            yield return null;
+
         showing = true;
         float delay = 0.75f;
 

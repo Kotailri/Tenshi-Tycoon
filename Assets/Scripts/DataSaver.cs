@@ -16,6 +16,8 @@ public class DataSaver : MonoBehaviour
         List<long> itemCounts = new();
         List<int> upgradeLevels = new();
         List<bool> perkUnlocks = new();
+        List<bool> trophies = new();
+        List<bool> cosmeticUnlocks = new();
 
         // Item Count
         foreach (ShopItem item in Global.itemManager.shopItems) 
@@ -35,7 +37,19 @@ public class DataSaver : MonoBehaviour
             perkUnlocks.Add(perk.IsPurchased());
         }
 
-        SaveFile fileToSave = new(itemCounts, upgradeLevels, perkUnlocks, ringCount.ToString());
+        // Trophy Unlocks
+        foreach (Trophy tr in Global.trophyManager.Trophys)
+        {
+            trophies.Add(tr.IsAchieved());
+        }
+
+        // Cosmetic Unlocks
+        foreach (Cosmetic cos in Global.cosmeticManager.cosmetics)
+        {
+            cosmeticUnlocks.Add(cos.IsUnlocked());
+        }
+
+        SaveFile fileToSave = new(itemCounts, upgradeLevels, perkUnlocks, trophies, cosmeticUnlocks, ringCount.ToString());
         File.WriteAllText(filename, JsonUtility.ToJson(fileToSave));
     }
 
@@ -56,6 +70,8 @@ public class DataSaver : MonoBehaviour
         {
             return; 
         }
+
+        Global.announcer.LockAnnouncer();
 
         using StreamReader r = new(filename);
         string json = r.ReadToEnd();
@@ -85,6 +101,25 @@ public class DataSaver : MonoBehaviour
             }
         }
 
+        // Trophy Unlocks
+        for (int i = 0; i < sav.trophies.Count; i++)
+        {
+            if (sav.trophies[i])
+            {
+                Global.trophyManager.Trophys[i].SetCompleted(false);
+            }
+        }
+
+        // Cosmetic Unlocks
+        for (int i = 0;i < sav.cosmeticUnlocks.Count; i++)
+        {
+            if (sav.cosmeticUnlocks[i])
+            {
+                Global.cosmeticManager.cosmetics[i].LoadUnlockCosmetic();
+            }
+        }
+
+        Global.announcer.UnlockAnnouncer();
     }
 
     private void Start()
@@ -113,13 +148,17 @@ public class SaveFile
     public List<long> itemCounts;
     public List<int> upgradeLevels;
     public List<bool> perkUnlocks;
+    public List<bool> trophies;
+    public List<bool> cosmeticUnlocks;
     public string ringCount;
 
-    public SaveFile(List<long> itemCounts, List<int> upgradeLevels, List<bool> perkUnlocks, string ringCount)
+    public SaveFile(List<long> itemCounts, List<int> upgradeLevels, List<bool> perkUnlocks, List<bool> trophies, List<bool> cosmeticUnlocks, string ringCount)
     {
         this.itemCounts = itemCounts;
         this.upgradeLevels = upgradeLevels;
         this.ringCount = ringCount;
         this.perkUnlocks = perkUnlocks;
+        this.trophies = trophies;
+        this.cosmeticUnlocks = cosmeticUnlocks;
     }
 }

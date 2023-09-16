@@ -11,6 +11,8 @@ public class TrophyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Global.trophyManager = this;
+
         float ypos = 0;
         foreach (Transform t in transform) 
         {

@@ -6,16 +6,24 @@ using UnityEngine;
 
 public class Global
 {
+    // Managers
     public static IncomeManager incomeManager;
-    public static AnnouncementHandler announcer;
-    
     public static ItemManager itemManager;
     public static UpgradeManager upgradeManager;
     public static PerkManager perkManager;
+    public static TrophyManager trophyManager;
+    public static CosmeticManager cosmeticManager;
 
+    // Extras
     public static HoverBox hoverBox;
     public static RingClicked ringClicker;
+    public static AnnouncementHandler announcer;
 
+    // Cosmetic Defaults
+    public static Color defaultRingColor = new(0.9782464f, 1, 0.3066038f, 1);
+    public static ObjectStorage objectStorage;
+
+    // Observers
     public static List<IncomeUpdateListener> incomeListeners = new();
 
     public static void InvokeLambda(Action action, float time)

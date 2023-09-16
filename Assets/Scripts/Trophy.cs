@@ -41,17 +41,21 @@ public class Trophy : IncomeUpdateListener
         return achieved;
     }
 
-    public void SetCompleted()
+    public void SetCompleted(bool withAnnouncement=true)
     {
         achieved = true;
         bar.fillAmount = 100;
         background.color = Color.green;
         percentText.text = "Completed!";
-        Global.announcer.CreateAnnouncement(announceText);
+
+        if (withAnnouncement)
+            Global.announcer.CreateAnnouncement(announceText);
     }
 
     public override void OnIncomeUpdate()
     {
+        if (IsAchieved()) { return; }
+
         if (requiredTrophy == null || (requiredTrophy != null && requiredTrophy.IsAchieved()))
         {
             background.color = Color.white;

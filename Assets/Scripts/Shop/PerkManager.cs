@@ -33,10 +33,8 @@ public class PerkManager : MonoBehaviour
             }
         }
 
-        perkList = perkList.OrderBy(o => o.PerkPrice).ToList();
-
         float yPos = 0.0f;
-        foreach (Perk perk in perkList)
+        foreach (Perk perk in perkList.OrderBy(o => o.PerkPrice).ToList())
         {
             perk.gameObject.transform.position = firstPosition + new Vector3(0, yPos, 0);
             yPos -= 170f;
