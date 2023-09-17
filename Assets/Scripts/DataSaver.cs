@@ -136,8 +136,9 @@ public class DataSaver : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            File.Delete(filename);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // DEBUG
+            //File.Delete(filename);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

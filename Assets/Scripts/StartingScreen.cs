@@ -11,7 +11,7 @@ public class StartingScreen : MonoBehaviour
 
     private float timeElapsed;
     private float valueToLerp;
-    private float delayTime = 3f;
+    private float delayTime = 4f;
 
     void Start()
     {

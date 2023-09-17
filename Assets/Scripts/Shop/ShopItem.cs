@@ -59,7 +59,8 @@ public class ShopItem : IncomeUpdateListener
                         {
                             for (int i = 0; i < 10; i++)
                             {
-                                PurchaseItem();
+                                PurchaseItem(withSound: false);
+                                AudioManager.instance.PlaySound("buy");
                             }
                         }
                         
@@ -70,8 +71,13 @@ public class ShopItem : IncomeUpdateListener
                 {
                     button.onClick.AddListener(() => 
                     {
+                        if (Global.incomeManager.CanAfford(item.price))
+                        {
+                            AudioManager.instance.PlaySound("buy");
+                        }
+
                         do { 
-                            PurchaseItem(); 
+                            PurchaseItem(withSound:false); 
                         } while (!locked && Global.incomeManager.CanAfford(item.price));
                     });
                 }
@@ -82,7 +88,7 @@ public class ShopItem : IncomeUpdateListener
         GetComponent<Button>().onClick.AddListener(() => 
         {
             if (!locked)
-                PurchaseItem();
+                PurchaseItem(true);
         });
     }
 
@@ -125,28 +131,26 @@ public class ShopItem : IncomeUpdateListener
             lim = _limit + item.limit;
         }
 
-        if (lim >= item.limit)
+        if (lim <= item.count)
         {
-            if (lim == item.count)
-            {
-                GetComponent<Image>().color = Color.green;
-                shopItemPriceText.text = "Sold Out!";
-                GetComponent<Button>().interactable = false;
-                locked = true;
-            }
-            else
-            {
-                GetComponent<Image>().color = Color.white;
-                shopItemPriceText.text = Global.LongToString(item.price) + " rings";
-                locked = false;
-            }
-            
+            GetComponent<Image>().color = Color.green;
+            shopItemPriceText.text = "Sold Out!";
+            GetComponent<Button>().interactable = false;
+            locked = true;
         }
+        else
+        {
+            GetComponent<Image>().color = Color.white;
+            GetComponent<Button>().interactable = true;
+            shopItemPriceText.text = Global.LongToString(item.price) + " rings";
+            locked = false;
+        }
+
         item.limit = lim;
         OnIncomeUpdate();
     }
 
-    private void PurchaseItem()
+    private void PurchaseItem(bool withAnnouncement=false, bool withSound=true)
     {
         if (!Global.incomeManager.CanAfford(item.price) || locked)
         {
@@ -154,8 +158,10 @@ public class ShopItem : IncomeUpdateListener
         }
 
         Global.incomeManager.SubtractRings(item.price);
-        IncrementItemCount();
+        if (withSound)
+            AudioManager.instance.PlaySound("buy");
 
+        IncrementItemCount(withAnnouncement);
         SetShopItemPrice(item.price + discountAmount);
         discountAmount = 0;
         
@@ -267,7 +273,7 @@ public class ShopItem : IncomeUpdateListener
         CheckLimit();
     }
 
-    public void IncrementItemCount()
+    public void IncrementItemCount(bool withAnnouncement=false)
     {
         item.IncrementItemCount();
 
@@ -279,11 +285,20 @@ public class ShopItem : IncomeUpdateListener
             Global.announcer.CreateAnnouncement(an);
         }
 
-        if (item.count == 69)
+        if (withAnnouncement)
         {
-            string an = "haha funny number";
-            Global.announcer.CreateAnnouncement(an);
-        }
+            if (item.count == 37)
+            {
+                string an = "zeta's favourite number";
+                Global.announcer.CreateAnnouncement(an);
+            }
+
+            if (item.count == 69)
+            {
+                string an = "haha funny number";
+                Global.announcer.CreateAnnouncement(an);
+            }
+        } 
 
         if (TryGetComponent(out ItemAchivement ach))
         {

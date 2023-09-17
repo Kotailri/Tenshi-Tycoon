@@ -49,7 +49,11 @@ public class Trophy : IncomeUpdateListener
         percentText.text = "Completed!";
 
         if (withAnnouncement)
+        {
             Global.announcer.CreateAnnouncement(announceText);
+            AudioManager.instance.PlaySound("success");
+        }
+            
     }
 
     public override void OnIncomeUpdate()

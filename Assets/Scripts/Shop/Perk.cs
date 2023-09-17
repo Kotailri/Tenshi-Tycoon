@@ -161,6 +161,7 @@ public abstract class Perk : IncomeUpdateListener
         if (Global.incomeManager.CanAfford(PerkPrice) && !purchased)
         {
             LoadPerk();
+            AudioManager.instance.PlaySound("buy");
             Global.incomeManager.SubtractRings(PerkPrice);
         }
     }

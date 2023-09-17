@@ -80,6 +80,8 @@ public class AnnouncementHandler : MonoBehaviour
         SetAnnounceText(announcementQueue.Peek().text);
         LeanTween.move(gameObject, showingPosition, delay).setEase(LeanTweenType.easeInOutSine);
 
+        AudioManager.instance.PlaySound("notif");
+
         yield return new WaitForSeconds(announcementQueue.Peek().time);
         LeanTween.move(gameObject, hiddenPosition, delay).setEase(LeanTweenType.easeInOutSine);
 

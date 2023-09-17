@@ -117,6 +117,7 @@ public abstract class Cosmetic : IncomeUpdateListener
         {
             case CosToggleState.Disabled:
                 Global.incomeManager.SubtractRings(cosPrice);
+                AudioManager.instance.PlaySound("buy");
                 state = CosToggleState.On;
                 GetComponent<Image>().color = Color.green;
                 GetComponent<Button>().interactable = true;
@@ -144,6 +145,7 @@ public abstract class Cosmetic : IncomeUpdateListener
                 spinner.color = Color.white;
                 cosPriceText.text = "Active";
                 DeactivateLinked();
+                AudioManager.instance.PlaySound("cosmeticON");
 
                 ToggleOn();
                 break;

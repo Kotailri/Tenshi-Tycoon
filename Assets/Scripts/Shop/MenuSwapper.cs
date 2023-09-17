@@ -29,10 +29,16 @@ public class MenuSwapper : MonoBehaviour
 
         foreach (MenuWithButton mb in menus)
         {
-            mb.button.onClick.AddListener(() => { OpenMenu(mb.index); });
+            mb.button.onClick.AddListener(() => {
+                AudioManager.instance.PlaySound("shift");
+                OpenMenu(mb.index); 
+            });
         }
+    }
 
-        OpenMenu(0);   
+    private void Start()
+    {
+        OpenMenu(0);
     }
 
     public void OpenMenu(int index)

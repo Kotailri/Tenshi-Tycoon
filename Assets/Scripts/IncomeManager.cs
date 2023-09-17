@@ -27,7 +27,7 @@ public class IncomeManager : MonoBehaviour
 
     private void Update()
     {
-        // DEBUG
+        /* DEBUG
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             AddRings(BigInteger.Parse("100"));
@@ -57,6 +57,7 @@ public class IncomeManager : MonoBehaviour
         {
             AddRings(BigInteger.Parse("100000000000000000000000000000000"));
         }
+        */
     }
 
     public int GetBoostMultiplier()

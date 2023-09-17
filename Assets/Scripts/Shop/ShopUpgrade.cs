@@ -144,6 +144,7 @@ public class ShopUpgrade : IncomeUpdateListener
     {
         if (Global.incomeManager.CanAfford(upgradePrice) && !locked)
         {
+            AudioManager.instance.PlaySound("buy");
             Global.incomeManager.SubtractRings(upgradePrice);
             ApplyUpgrade();
         }
