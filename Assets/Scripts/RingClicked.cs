@@ -68,7 +68,6 @@ public class RingClicked : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         if (Random.Range(0f, 1f) < ((float)boostChancePercent / (float)100))
         {
             Global.incomeManager.StartBoost();
-            AudioManager.instance.PlaySound("success2");
         }
         OnClickAction();
         transform.localScale = clickedScale;

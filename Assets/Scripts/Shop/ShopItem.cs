@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Numerics;
 
 public class ShopItem : IncomeUpdateListener
 {
@@ -133,21 +134,21 @@ public class ShopItem : IncomeUpdateListener
 
         if (lim <= item.count)
         {
-            GetComponent<Image>().color = Color.green;
-            shopItemPriceText.text = "Sold Out!";
-            GetComponent<Button>().interactable = false;
-            locked = true;
+            SetLock(true);
         }
         else
         {
-            GetComponent<Image>().color = Color.white;
-            GetComponent<Button>().interactable = true;
-            shopItemPriceText.text = Global.LongToString(item.price) + " rings";
-            locked = false;
+            if (locked)
+            {
+                GetComponent<Image>().color = Color.white;
+                GetComponent<Button>().interactable = true;
+                shopItemPriceText.text = Global.LongToString(item.price) + " rings";
+                locked = false;
+            }
+            
+            UpdateAffordability();
         }
-
         item.limit = lim;
-        OnIncomeUpdate();
     }
 
     private void PurchaseItem(bool withAnnouncement=false, bool withSound=true)

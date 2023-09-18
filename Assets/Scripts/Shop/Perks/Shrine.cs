@@ -9,7 +9,12 @@ public class Shrine : Perk
         ShopItem item = Global.itemManager.FindShopItem("Maki Figurine");
         item.IncrementItemCount(5);
         Global.itemManager.FindShopItem("Maki Figurine").AddTempDiscount(0.5f);
-        Global.incomeManager.StartBoost();
+
+        if (!Global.reloading)
+        {
+            Global.incomeManager.StartBoost();
+        }
+        
     }
 
     // Start is called before the first frame update

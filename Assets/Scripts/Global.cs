@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Global
 {
+    // DEBUG
+    public static bool debugMode = false;
+
     // Managers
     public static IncomeManager incomeManager;
     public static ItemManager itemManager;
@@ -19,6 +22,8 @@ public class Global
     public static RingClicked ringClicker;
     public static AnnouncementHandler announcer;
     public static ClickEffectSpawner clickEffectSpawner;
+
+    public static bool reloading = false;
 
     // Cosmetic Defaults
     public static Color defaultRingColor = new(0.9782464f, 1, 0.3066038f, 1);

@@ -31,11 +31,12 @@ public class TenshiBlessing : Perk
         Global.incomeManager.AddRings(ringsToAdd);
         currentTimer = 0f;
         timerStopped = false;
+        priceText.text = "Loading";
+        GetComponent<Image>().color = new Color(0.85f, 0.85f, 0.85f, 0.8f);
     }
 
     public override void LoadPerkFromSave()
     {
-        base.LoadPerkFromSave();
         priceText.text = "Loading";
         GetComponent<Image>().color = new Color(0.85f, 0.85f, 0.85f, 0.8f);
     }
@@ -46,6 +47,7 @@ public class TenshiBlessing : Perk
         {
             purchased = false;
             GetComponent<Image>().color = Color.white;
+            priceText.text = "Free";
         }
     }
 

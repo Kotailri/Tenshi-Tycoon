@@ -867,7 +867,7 @@ MonoBehaviour:
   requiredPerk: {fileID: 2134345703}
   linkedPerks: []
   perkDisabled: 0
-  clickIncreaseAmount: 20
+  clickIncreaseAmount: 100
 --- !u!114 &19352850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45109,13 +45109,13 @@ MonoBehaviour:
   sounds:
   - name: ringclick
     clip: {fileID: 8300000, guid: cab9307f70c6eaf4b92c963957d4207b, type: 3}
-    volume: 0.1
+    volume: 0.2
     pitch: 0.601
     randomVolume: 0.121
     randomPitch: 0.226
   - name: ringclick2
     clip: {fileID: 8300000, guid: cab9307f70c6eaf4b92c963957d4207b, type: 3}
-    volume: 0.1
+    volume: 0.2
     pitch: 1
     randomVolume: 0.08
     randomPitch: 0.161
@@ -68650,7 +68650,7 @@ MonoBehaviour:
   priceText: {fileID: 1535018336}
   infoText: {fileID: 1800585028}
   purchased: 0
-  requiredPerk: {fileID: 755933727}
+  requiredPerk: {fileID: 0}
   linkedPerks: []
   perkDisabled: 0
   clickIncreaseAmount: 2

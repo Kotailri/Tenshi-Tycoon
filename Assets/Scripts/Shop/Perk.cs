@@ -174,6 +174,7 @@ public abstract class Perk : IncomeUpdateListener
     public virtual void LoadPerk()
     {
         purchased = true;
+        UnhidePerk();
         GetComponent<Image>().color = Color.green;
         priceText.text = "Purchased!";
         Global.perkManager.CheckPerkRequirements();

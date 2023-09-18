@@ -27,37 +27,40 @@ public class IncomeManager : MonoBehaviour
 
     private void Update()
     {
-        /* DEBUG
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Global.debugMode) 
         {
-            AddRings(BigInteger.Parse("100"));
-        }
+            // DEBUG
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                AddRings(BigInteger.Parse("100"));
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AddRings(BigInteger.Parse("1000"));
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                AddRings(BigInteger.Parse("1000"));
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            AddRings(BigInteger.Parse("10000"));
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                AddRings(BigInteger.Parse("10000"));
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            AddRings(BigInteger.Parse("100000"));
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                AddRings(BigInteger.Parse("100000"));
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            AddRings(BigInteger.Parse("1000000000000000000"));
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                AddRings(BigInteger.Parse("1000000000000000000"));
+            }
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            AddRings(BigInteger.Parse("100000000000000000000000000000000"));
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                AddRings(BigInteger.Parse("100000000000000000000000000000000"));
+            }
         }
-        */
+        
     }
 
     public int GetBoostMultiplier()
@@ -68,7 +71,11 @@ public class IncomeManager : MonoBehaviour
     public void StartBoost()
     {
         if (!boostEnabled)
+        {
+            AudioManager.instance.PlaySound("success2");
             boostEffect.StartBoostTimer(boostTime);
+        }
+            
     }
 
     public void EnableBoost()

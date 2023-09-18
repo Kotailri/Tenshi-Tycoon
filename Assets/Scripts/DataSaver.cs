@@ -49,7 +49,8 @@ public class DataSaver : MonoBehaviour
             cosmeticUnlocks.Add(cos.IsUnlocked());
         }
 
-        SaveFile fileToSave = new(itemCounts, upgradeLevels, perkUnlocks, trophies, cosmeticUnlocks, ringCount.ToString());
+        SaveFile fileToSave = new(itemCounts, upgradeLevels, perkUnlocks, trophies, 
+            cosmeticUnlocks, ringCount.ToString());
         File.WriteAllText(filename, JsonUtility.ToJson(fileToSave));
     }
 
@@ -71,6 +72,7 @@ public class DataSaver : MonoBehaviour
             return; 
         }
 
+        Global.reloading = true;
         Global.announcer.LockAnnouncer();
 
         using StreamReader r = new(filename);
@@ -120,6 +122,7 @@ public class DataSaver : MonoBehaviour
         }
 
         Global.announcer.UnlockAnnouncer();
+        Global.reloading = false;
     }
 
     private void Start()
@@ -134,11 +137,11 @@ public class DataSaver : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace) && Global.debugMode)
         {
             // DEBUG
-            //File.Delete(filename);
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            File.Delete(filename);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
@@ -153,7 +156,8 @@ public class SaveFile
     public List<bool> cosmeticUnlocks;
     public string ringCount;
 
-    public SaveFile(List<long> itemCounts, List<int> upgradeLevels, List<bool> perkUnlocks, List<bool> trophies, List<bool> cosmeticUnlocks, string ringCount)
+    public SaveFile(List<long> itemCounts, List<int> upgradeLevels, List<bool> perkUnlocks, 
+        List<bool> trophies, List<bool> cosmeticUnlocks, string ringCount)
     {
         this.itemCounts = itemCounts;
         this.upgradeLevels = upgradeLevels;

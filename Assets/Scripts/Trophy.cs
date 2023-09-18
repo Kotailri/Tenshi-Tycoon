@@ -58,7 +58,7 @@ public class Trophy : IncomeUpdateListener
 
     public override void OnIncomeUpdate()
     {
-        if (IsAchieved()) { return; }
+        if (IsAchieved() || Global.reloading) { return; }
 
         if (requiredTrophy == null || (requiredTrophy != null && requiredTrophy.IsAchieved()))
         {
@@ -79,12 +79,12 @@ public class Trophy : IncomeUpdateListener
     public void SetGoal(BigInteger _goal)
     {
         goal = _goal;
-        goalText.text = Global.LongToString(goal) + " Total Rings";
+        goalText.text = Global.LongToString(goal) + " Rings";
     }
 
     public void UpdateGoal()
     {
-        string currentStr = Global.incomeManager.totalRings.ToString();
+        string currentStr = Global.incomeManager.rings.ToString();
         string goalStr = goal.ToString();
 
         int currentLen = currentStr.Length;

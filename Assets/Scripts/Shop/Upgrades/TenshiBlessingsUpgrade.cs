@@ -29,7 +29,7 @@ public class TenshiBlessingsUpgrade : ShopUpgrade
                 new Upgrade($"{targetItemName} Tier 2", $"Increase [{targetItemName}] tr/s by 15%",       40_000_000_000_000_000, $"Requires at least {requirementCount[1]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 3", $"Decrease [{targetItemName}] cost by 25%",       50_900_000_000_000_000, $"Requires at least {requirementCount[2]} [{targetItemName}]."),
                 new Upgrade($"{targetItemName} Tier 4", $"Increase [{targetItemName}] tr/s by 25%",      100_000_000_000_000_000, $"Requires at least {requirementCount[3]} [{targetItemName}]."),
-                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 5x", BigInteger.Parse("200000000000000000"), $"Requires at least {requirementCount[4]} [{targetItemName}].")
+                new Upgrade($"{targetItemName} Tier 5", $"Increase [{targetItemName}] tr/s by 100x", BigInteger.Parse("200000000000000000"), $"Requires at least {requirementCount[4]} [{targetItemName}].")
             };
 
             UpdateMaxLevel(upgradeInfoList.Count);
@@ -57,7 +57,7 @@ public class TenshiBlessingsUpgrade : ShopUpgrade
                 targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 1.25));
                 break;
             case 5:
-                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 5));
+                targetShopItem.SetShopItemRate((long)(targetShopItem.GetRate() * 100));
                 break;
         }
 
