@@ -9,6 +9,7 @@ public class SpecifiedCoupon : Perk
 
     public override void ApplyPerk()
     {
+        if (Global.reloading) { return; }
         Global.itemManager.FindShopItem(shopItemName).AddTempDiscount(discountPercent / 100.0f);
     }
 

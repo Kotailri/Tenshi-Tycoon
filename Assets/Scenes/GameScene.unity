@@ -45121,7 +45121,7 @@ MonoBehaviour:
     randomPitch: 0.161
   - name: blip
     clip: {fileID: 8300000, guid: e2ef9e0540b34df4eaabe9d0ff2e16b0, type: 3}
-    volume: 0.2
+    volume: 0.05
     pitch: 1
     randomVolume: 0
     randomPitch: 0

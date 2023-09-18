@@ -8,6 +8,8 @@ public class Coupon : Perk
 
     public override void ApplyPerk()
     {
+        if (Global.reloading) { return; }
+
         foreach (ShopItem item in Global.itemManager.shopItems) 
         {
             item.AddSharedTempDiscount(discountPercent / 100.0f);
